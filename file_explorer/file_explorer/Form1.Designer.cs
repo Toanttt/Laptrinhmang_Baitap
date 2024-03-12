@@ -36,13 +36,14 @@
             button1 = new Button();
             splitContainer1 = new SplitContainer();
             treeView1 = new TreeView();
-            listView1 = new ListView();
+            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -113,7 +114,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(listView1);
+            splitContainer1.Panel2.Controls.Add(webView21);
             splitContainer1.Size = new Size(800, 412);
             splitContainer1.SplitterDistance = 266;
             splitContainer1.TabIndex = 1;
@@ -127,15 +128,18 @@
             treeView1.TabIndex = 0;
             treeView1.AfterSelect += treeView1_AfterSelect;
             // 
-            // listView1
+            // webView21
             // 
-            listView1.Dock = DockStyle.Fill;
-            listView1.Location = new Point(0, 0);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(530, 412);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.MouseDoubleClick += listView1_MouseDoubleClick;
+            webView21.AllowExternalDrop = true;
+            webView21.CreationProperties = null;
+            webView21.DefaultBackgroundColor = Color.White;
+            webView21.Dock = DockStyle.Fill;
+            webView21.Location = new Point(0, 0);
+            webView21.Name = "webView21";
+            webView21.Size = new Size(530, 412);
+            webView21.TabIndex = 0;
+            webView21.ZoomFactor = 1D;
+            webView21.Click += webView21_Click;
             // 
             // Form1
             // 
@@ -154,6 +158,7 @@
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
         }
 
@@ -164,9 +169,9 @@
         private Button button1;
         private SplitContainer splitContainer1;
         private TreeView treeView1;
-        private ListView listView1;
         private TextBox textBox1;
         private Label label1;
         private Button button2;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
     }
 }
