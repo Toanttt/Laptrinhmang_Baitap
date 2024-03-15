@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,21 +50,18 @@ namespace file_explorer_window_form_app_
             if(webBrowser.CanGoForward)
             {
                 webBrowser.GoForward();
+       
             }       
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {   
-            if (webBrowser.Url != null)
+           if(webBrowser.CanGoBack)
             {
-                var currentPath = webBrowser.Url.LocalPath;
-                var directory = System.IO.Path.GetDirectoryName(currentPath);
-                if (directory != null)
-                {
-                    webBrowser.Url = new Uri(directory);
-                    txtPath.Text = directory;
-                }
+                webBrowser.GoBack();
             }
         }
+       
+        
     }
 }
