@@ -359,11 +359,11 @@ namespace Lab3_Bai6
                     netStream.Write(fileData, 0, fileData.Length);
                     netStream.Flush();
 
-                    //DisplayFileTransferProgress(Path.GetFileName(filePath), fileData.Length, fileData.Length);
                 }
             }
             AddMessage(null, "Chuyển file thành công!!");
         }
+
         // Hàm hiện ảnh lên trên rtbChatBox
         private void AddImageToChat(string username, Image image)
         {

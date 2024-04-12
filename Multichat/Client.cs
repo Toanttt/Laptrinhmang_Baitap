@@ -94,6 +94,7 @@ namespace Lab3_Bai6
                         connecting = false;
                         tcpClient.Close();
                         AddMessage(null, "Server disconnected.");
+                        MessageBox.Show("Lỗi kết nối");
                         break;
                     }
 
@@ -343,44 +344,87 @@ namespace Lab3_Bai6
         }
 
         // Trong phần xử lý nhận file ở bên client
-        private void ReceiveFile(NetworkStream netStream)
+        //private void ReceiveFile(NetworkStream netStream)
+        //{
+        //    byte[] fileNameLengthBytes = new byte[4]; // Đọc độ dài tên file
+        //    netStream.Read(fileNameLengthBytes, 0, 4);
+        //    int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
+
+        //    byte[] fileNameBytes = new byte[fileNameLength]; // Đọc tên file
+        //    netStream.Read(fileNameBytes, 0, fileNameLength);
+        //    string fileName = Encoding.UTF8.GetString(fileNameBytes);
+
+
+
+        //    // Tạo button trong FlowLayoutPanel
+        //    Button fileButton = new Button();
+        //    fileButton.Text = fileName;
+        //    fileButton.Click += (sender, e) =>
+        //    {
+        //        //byte[] fileBytes = File.ReadAllBytes(savePath);
+        //        SaveFileDialog saveFileDialog = new SaveFileDialog();
+        //        saveFileDialog.FileName = fileName;
+        //        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        //        {
+        //            string savePath = saveFileDialog.FileName;
+
+        //            using (FileStream fileStream = new FileStream(savePath, FileMode.Create))
+        //            {
+        //                byte[] buffer = new byte[1024];
+        //                int bytesRead;
+
+        //                while ((bytesRead = netStream.Read(buffer, 0, buffer.Length)) > 0)
+        //                {
+        //                    fileStream.Write(buffer, 0, bytesRead);
+        //                }
+        //            }
+        //        }
+        //    };
+
+        //    flowLayoutPanel1.Controls.Add(fileButton);
+        //}
+
+        private void ReceiveFile(NetworkStream net_stream)
         {
-            byte[] fileNameLengthBytes = new byte[4]; // Đọc độ dài tên file
-            netStream.Read(fileNameLengthBytes, 0, 4);
+            byte[] fileNameLengthBytes = new byte[sizeof(int)];
+            net_stream.Read(fileNameLengthBytes, 0, sizeof(int));
             int fileNameLength = BitConverter.ToInt32(fileNameLengthBytes, 0);
 
-            byte[] fileNameBytes = new byte[fileNameLength]; // Đọc tên file
-            netStream.Read(fileNameBytes, 0, fileNameLength);
+            byte[] fileNameBytes = new byte[fileNameLength];
+            net_stream.Read(fileNameBytes, 0, fileNameLength);
             string fileName = Encoding.UTF8.GetString(fileNameBytes);
 
+            byte[] fileDataLengthBytes = new byte[sizeof(int)];
+            net_stream.Read(fileDataLengthBytes, 0, sizeof(int));
+            int fileDataLength = BitConverter.ToInt32(fileDataLengthBytes, 0);
 
-
-            // Tạo button trong FlowLayoutPanel
-            Button fileButton = new Button();
-            fileButton.Text = fileName;
-            fileButton.Click += (sender, e) =>
+            byte[] fileData = new byte[fileDataLength];
+            int totalBytesRead = 0;
+            while (totalBytesRead < fileDataLength)
             {
-                byte[] fileBytes = File.ReadAllBytes(savePath);
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.FileName = fileName;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                int bytesRead = net_stream.Read(fileData, totalBytesRead, fileDataLength - totalBytesRead);
+                if (bytesRead == 0)
                 {
-                    string savePath = saveFileDialog.FileName;
-
-                    using (FileStream fileStream = new FileStream(savePath, FileMode.Create))
-                    {
-                        byte[] buffer = new byte[1024];
-                        int bytesRead;
-
-                        while ((bytesRead = netStream.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            fileStream.Write(buffer, 0, bytesRead);
-                        }
-                    }
+                    throw new IOException("Unexpected end of stream");
                 }
-            };
+                totalBytesRead += bytesRead;
+            }
 
-            flowLayoutPanel1.Controls.Add(fileButton);
+            // Lưu file và tạo button để client có thể click vào để nhận file
+            this.Invoke((MethodInvoker)delegate
+            {
+                Button fileButton = new Button();
+                fileButton.Text = "Download " + fileName;
+                fileButton.Click += (sender, e) => SaveFile(fileName, fileData);
+                // Thêm button vào giao diện để client có thể click để tải file
+            });
+        }
+
+        private void SaveFile(string fileName, byte[] fileData)
+        {
+            string savePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
+            File.WriteAllBytes(savePath, fileData);
+            // Hiển thị thông báo hoặc thực hiện thêm các xử lý sau khi lưu file
         }
     }
 }
