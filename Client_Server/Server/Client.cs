@@ -28,7 +28,6 @@ namespace Server
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
 
-
             tableLayoutPanel.Visible = false;
 
             emojiUtility emojiUtility = new emojiUtility();
@@ -57,7 +56,6 @@ namespace Server
                 }
                 tableLayoutPanel.BringToFront(); // Đặt TableLayoutPanel lên trên rtbMain
             };
-
         }
 
         bool isConnected = false;
@@ -76,7 +74,6 @@ namespace Server
             AddMessage("Me: " + rtbMessage.Text.Trim());
             rtbMessage.Clear();
         }
-
 
         void AddMessage(string s)
         {

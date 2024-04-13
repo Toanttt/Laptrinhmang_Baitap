@@ -8,6 +8,7 @@ namespace Server
 {
     internal class emojiUtility
     {
+        string s = "\u1F54";
         // Tạo danh sách các Unicode tương ứng với các emoji
         private Dictionary<string, string> emojis = new Dictionary<string, string>()
             {
