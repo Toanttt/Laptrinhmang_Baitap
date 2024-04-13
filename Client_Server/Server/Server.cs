@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Security;
 using System.Xml.Linq;
+using System.Collections;
 
 namespace Server
 {
@@ -26,15 +27,19 @@ namespace Server
             CheckForIllegalCrossThreadCalls = false;
 
         }
+
+        bool isConnected = false;
         IPEndPoint IP;
         Socket server;
-        List<Socket> clientList;
-        bool isConnected = false;
+        //List<Socket> clientList;
+        private IPAddress ipServer = IPAddress.Any;
+        private Dictionary<string, Socket> clientList = new Dictionary<string, Socket>();
 
+            
         void Connect(int portNumber)
         {
-            clientList = new List<Socket>();
-            IP = new IPEndPoint(IPAddress.Any, portNumber);
+            clientList = new Dictionary<string, Socket>();
+            IP = new IPEndPoint(ipServer, portNumber);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
 
             server.Bind(IP);
@@ -47,8 +52,21 @@ namespace Server
                     {
                         server.Listen(100);
                         Socket client = server.Accept();
-                        clientList.Add(client);
 
+                        byte[] data = new byte[1024 * 5000];
+                        int bytesReceived = client.Receive(data);
+                        string username = Encoding.UTF8.GetString(data, 0, bytesReceived);
+
+                        if (clientList.ContainsKey(username))
+                        {
+                            client.Close();
+                        }
+                        else
+                        {
+                            AddMessage($"{username} đã kết nối thành công đến server!");
+                            clientList.Add(username, client);
+                        }
+                        
                         Thread receive = new Thread(Receive);
                         receive.IsBackground = true;
                         receive.Start(client);
@@ -67,7 +85,7 @@ namespace Server
         {
             try
             {
-                foreach (Socket item in clientList)
+                foreach (Socket item in clientList.Values)
                 {
                     Send(item);
                 }
@@ -76,25 +94,50 @@ namespace Server
                 MessageBox.Show("Error: " + ex);
                 return;
             }
-            string full = "Server: " + rtbMessage.Text;
+            string full = "Server: " + rtbMessage.Text.Trim();
             AddMessage(full);
             rtbMessage.Clear();
         }
 
         void AddMessage(string s)
         {
-            rtbMain.Text += s + Environment.NewLine;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<string>(AddMessage), new object[] { s });
+                return;
+            }
+            rtbMain.Text += s.Trim() + Environment.NewLine;
+            rtbMessage.Clear();
+            ScrollToBottom();
         }
 
         void Send(Socket client)
         {
-            if (client != null && rtbMessage.Text != string.Empty)
-                client.Send(Serialize("Server: " + rtbMessage.Text.Trim()));
+            string text = rtbMessage.Text.Trim();
+            if (client != null && text != string.Empty)
+            {
+                byte[] message = Encoding.UTF8.GetBytes("Server: " + text);
+                client.Send(message);
+            }
+        }
+
+        string FindUsername(Dictionary<string, Socket> dictionary, Socket value)
+        {
+            foreach (var pair in dictionary)
+            {
+                if (pair.Value == value)
+                {
+                    return pair.Key;
+                }
+            }
+
+            return null;
         }
 
         private void Receive(object obj)
         {
             Socket client = obj as Socket;
+            string username = FindUsername(clientList, client);
 
             try
             {
@@ -105,51 +148,37 @@ namespace Server
 
                     if (bytesReceived == 0)
                     {
-                        clientList.Remove(client);
+                        clientList.Remove(username);
                         client.Close();
                         return;
                     }
 
-                    string message = (string)Deserialize(data);
+                    string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
+                    string send_message = $"{username}: {message}";
+                    byte[] send_message__bytes = Encoding.UTF8.GetBytes(send_message);
 
-                    foreach (Socket item in clientList)
+                    foreach (Socket item in clientList.Values)
                     {
                         if (item != null && item != client)
                         {
-                            item.Send(Serialize(message));
+                            item.Send(send_message__bytes);
                         }
                     }
-
-                    AddMessage(message);
+                    AddMessage(send_message);
                 }
             }
             catch
             {
-                clientList.Remove(client);
+                clientList.Remove(username);
                 client.Close();
             }
-        }
-
-        byte[] Serialize(object obj)
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, obj);
-            return stream.ToArray();
-        }
-
-        object Deserialize(byte[] data)
-        {
-            MemoryStream stream = new MemoryStream(data);
-            BinaryFormatter formatter = new BinaryFormatter();
-            return formatter.Deserialize(stream);
         }
 
         private void StopServer()
         {
             try
             {
-                foreach (Socket client in clientList)
+                foreach (Socket client in clientList.Values)
                 {
                     client.Close();
                 }
@@ -181,7 +210,7 @@ namespace Server
                 return;
             }
             Connect(portNumber);
-            MessageBox.Show("Mở port thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            AddMessage($"Đã mở server port {portNumber} thành công!");
             btnOpenPort.Enabled = false;
             txtPort.Enabled = false;
         }
@@ -192,6 +221,20 @@ namespace Server
             btnOpenPort.Enabled = true;
             txtPort.Enabled = true;
             btnShut.Enabled = false;
+        }
+
+        private void rtbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSend.PerformClick();
+            }
+        }
+
+        private void ScrollToBottom()
+        {
+            rtbMain.SelectionStart = rtbMain.Text.Length;
+            rtbMain.ScrollToCaret();
         }
     }
 }

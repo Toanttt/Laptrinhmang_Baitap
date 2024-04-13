@@ -13,11 +13,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using System.Net.Http;
+using System.Security;
 
 namespace Server
 {
     public partial class Client : Form
     {
+
+
 
         public Client()
         {
@@ -33,32 +37,29 @@ namespace Server
         {
             if (!isConnected)
             {
-                MessageBox.Show("Vui lòng kết nối đến server!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                rtbMain.Text += "Lỗi kết nối server";
                 return;
             }
             if (rtbMessage.Text == "") { return; }
-            Send();
-            string full = txtName.Text + ": " + rtbMessage.Text.Trim();
-            AddMessage(full);
-        }
-
-        void AddMessage(string s)
-        {
-            rtbMain.Text += s + Environment.NewLine;
+            Send(rtbMessage.Text.Trim());
+            AddMessage("Me: " + rtbMessage.Text.Trim());
             rtbMessage.Clear();
         }
 
-        void receiveMessage(string s)
+
+        void AddMessage(string s)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action<string>(receiveMessage), new object[] { s });
+                this.Invoke(new Action<string>(AddMessage), new object[] { s });
                 return;
             }
-            rtbMain.Text += s + Environment.NewLine;
-         }
+            rtbMain.Text += s.Trim() + Environment.NewLine;
+            rtbMessage.Clear();
+            ScrollToBottom();
+        }
 
-        void Ketnoi(int portNumber)
+        void Connect(int portNumber)
         {
             IP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), portNumber);
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
@@ -66,26 +67,26 @@ namespace Server
             {
                 client.Connect(IP);
                 isConnected = true;
-                MessageBox.Show("Đã kết nối thành công với server port: " + portNumber, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AddMessage($"Đã kết nối thành công với port {portNumber}");
             }
             catch
             {
-                MessageBox.Show("Không thể kết nối server", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AddMessage("Không thể kết nối server");
                 return;
             }
+
+            byte[] message = Encoding.UTF8.GetBytes(txtName.Text.Trim());
+            client.Send(message);
 
             Thread listen = new Thread(Receive);
             listen.IsBackground = true;
             listen.Start();
         }
 
-        void Send()
+        void Send(string s)
         {
-            if (rtbMessage.Text != string.Empty && txtName.Text != string.Empty)
-            {
-                string full = txtName.Text + ": " + rtbMessage.Text.Trim();
-                client.Send(Serialize(full));
-            }
+            byte[] message = Encoding.UTF8.GetBytes(s);
+            client.Send(message);
         }
 
         void Receive()
@@ -95,9 +96,9 @@ namespace Server
                 while (true)
                 {
                     byte[] data = new byte[1024 * 5000];
-                    client.Receive(data);
-                    string message = (string)Deserialize(data);
-                    receiveMessage(message);
+                    int bytesReceived = client.Receive(data);
+                    string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
+                    AddMessage(message);
                 }
             }
             catch
@@ -105,22 +106,6 @@ namespace Server
                 Close();
             }
         }
-
-        byte[] Serialize(object obj)
-        {
-            MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, obj);
-            return stream.ToArray();
-        }
-
-        object Deserialize(byte[] data)
-        {
-            MemoryStream stream = new MemoryStream(data);
-            BinaryFormatter formatter = new BinaryFormatter();
-            return formatter.Deserialize(stream);
-        }
-
 
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -141,7 +126,7 @@ namespace Server
             }
             if (txtName.Text != "")
             {
-                Ketnoi(portNumber);
+                Connect(portNumber);
             } else
             {
                 MessageBox.Show("Vui lòng nhập tên!");
@@ -157,6 +142,19 @@ namespace Server
             {
                 client.Close();
             }
+        }
+
+        private void rtbMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSend.PerformClick();
+            }
+        }
+        private void ScrollToBottom()
+        {
+            rtbMain.SelectionStart = rtbMain.Text.Length;
+            rtbMain.ScrollToCaret();
         }
     }
 }

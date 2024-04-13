@@ -43,31 +43,29 @@
             // rtbMain
             // 
             this.rtbMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.rtbMain.Location = new System.Drawing.Point(17, 15);
-            this.rtbMain.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbMain.Location = new System.Drawing.Point(13, 12);
             this.rtbMain.Name = "rtbMain";
             this.rtbMain.ReadOnly = true;
-            this.rtbMain.Size = new System.Drawing.Size(711, 474);
+            this.rtbMain.Size = new System.Drawing.Size(534, 386);
             this.rtbMain.TabIndex = 0;
             this.rtbMain.Text = "";
             // 
             // rtbMessage
             // 
-            this.rtbMessage.Location = new System.Drawing.Point(16, 497);
-            this.rtbMessage.Margin = new System.Windows.Forms.Padding(4);
+            this.rtbMessage.Location = new System.Drawing.Point(12, 404);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(711, 41);
+            this.rtbMessage.Size = new System.Drawing.Size(534, 34);
             this.rtbMessage.TabIndex = 3;
             this.rtbMessage.Text = "";
+            this.rtbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbMessage_KeyDown);
             // 
             // btnSend
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.btnSend.Image = ((System.Drawing.Image)(resources.GetObject("btnSend.Image")));
-            this.btnSend.Location = new System.Drawing.Point(763, 488);
-            this.btnSend.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSend.Location = new System.Drawing.Point(572, 396);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(278, 62);
+            this.btnSend.Size = new System.Drawing.Size(208, 50);
             this.btnSend.TabIndex = 2;
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -76,10 +74,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label1.Location = new System.Drawing.Point(731, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(548, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 29);
+            this.label1.Size = new System.Drawing.Size(102, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Client Port";
             // 
@@ -87,10 +84,9 @@
             // 
             this.txtPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.txtPort.Location = new System.Drawing.Point(917, 15);
-            this.txtPort.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPort.Location = new System.Drawing.Point(688, 12);
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(133, 36);
+            this.txtPort.Size = new System.Drawing.Size(100, 30);
             this.txtPort.TabIndex = 0;
             this.txtPort.Text = "8888";
             // 
@@ -98,10 +94,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label2.Location = new System.Drawing.Point(731, 65);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(548, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 29);
+            this.label2.Size = new System.Drawing.Size(47, 25);
             this.label2.TabIndex = 3;
             this.label2.Text = "Tên";
             // 
@@ -109,19 +104,17 @@
             // 
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.txtName.Location = new System.Drawing.Point(808, 59);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4);
+            this.txtName.Location = new System.Drawing.Point(606, 48);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(242, 36);
+            this.txtName.Size = new System.Drawing.Size(182, 30);
             this.txtName.TabIndex = 1;
             // 
             // btnConnect
             // 
             this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btnConnect.Location = new System.Drawing.Point(925, 103);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(4);
+            this.btnConnect.Location = new System.Drawing.Point(694, 84);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(125, 37);
+            this.btnConnect.Size = new System.Drawing.Size(94, 30);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "Kết nối";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -130,10 +123,9 @@
             // btnShutServer
             // 
             this.btnShutServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btnShutServer.Location = new System.Drawing.Point(925, 148);
-            this.btnShutServer.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShutServer.Location = new System.Drawing.Point(694, 120);
             this.btnShutServer.Name = "btnShutServer";
-            this.btnShutServer.Size = new System.Drawing.Size(125, 37);
+            this.btnShutServer.Size = new System.Drawing.Size(94, 30);
             this.btnShutServer.TabIndex = 4;
             this.btnShutServer.Text = "Thoát";
             this.btnShutServer.UseVisualStyleBackColor = true;
@@ -141,9 +133,9 @@
             // 
             // Client
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnShutServer);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.txtName);
@@ -154,7 +146,6 @@
             this.Controls.Add(this.rtbMessage);
             this.Controls.Add(this.rtbMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Client";
             this.Text = "Client";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Client_FormClosed);
