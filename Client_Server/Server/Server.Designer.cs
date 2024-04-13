@@ -36,6 +36,8 @@
             this.txtPort = new System.Windows.Forms.TextBox();
             this.btnOpenPort = new System.Windows.Forms.Button();
             this.btnShut = new System.Windows.Forms.Button();
+            this.showTableLayoutPanelButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // btnSend
@@ -45,7 +47,7 @@
             this.btnSend.Location = new System.Drawing.Point(760, 478);
             this.btnSend.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(282, 63);
+            this.btnSend.Size = new System.Drawing.Size(283, 63);
             this.btnSend.TabIndex = 5;
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -59,6 +61,7 @@
             this.rtbMessage.Size = new System.Drawing.Size(711, 41);
             this.rtbMessage.TabIndex = 0;
             this.rtbMessage.Text = "";
+            this.rtbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbMessage_KeyDown);
             // 
             // rtbMain
             // 
@@ -118,11 +121,39 @@
             this.btnShut.UseVisualStyleBackColor = true;
             this.btnShut.Click += new System.EventHandler(this.btnShutPort_Click);
             // 
+            // showTableLayoutPanelButton
+            // 
+            this.showTableLayoutPanelButton.Location = new System.Drawing.Point(669, 497);
+            this.showTableLayoutPanelButton.Name = "showTableLayoutPanelButton";
+            this.showTableLayoutPanelButton.Size = new System.Drawing.Size(59, 41);
+            this.showTableLayoutPanelButton.TabIndex = 9;
+            this.showTableLayoutPanelButton.Text = "☺";
+            this.showTableLayoutPanelButton.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.ColumnCount = 4;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.Location = new System.Drawing.Point(669, 333);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 4;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(219, 138);
+            this.tableLayoutPanel.TabIndex = 10;
+            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.tableLayoutPanel);
+            this.Controls.Add(this.showTableLayoutPanelButton);
             this.Controls.Add(this.btnShut);
             this.Controls.Add(this.btnOpenPort);
             this.Controls.Add(this.txtPort);
@@ -149,6 +180,8 @@
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.Button btnOpenPort;
         private System.Windows.Forms.Button btnShut;
+        private System.Windows.Forms.Button showTableLayoutPanelButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
     }
 }
 
