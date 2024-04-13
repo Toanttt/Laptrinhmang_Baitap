@@ -5,21 +5,104 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 using System.IO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using J3QQ4;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace Server
 {
     public partial class Client : Form
     {
-
-
-
         public Client()
         {
             InitializeComponent();
+            LoadEmojiButtons();
             CheckForIllegalCrossThreadCalls = false;
+        }
+
+        private List<string> emojiList = new List<string>();
+
+        private void LoadEmojiButtons()
+        {
+            Type emojiType = typeof(Emoji);
+            FieldInfo[] emojiFields = emojiType.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+            foreach (FieldInfo field in emojiFields)
+            {
+                string emoji = (string)field.GetValue(null);
+                emojiList.Add(emoji);
+
+                Button emojiButton = new Button();
+                emojiButton.Text = emoji;
+                emojiButton.Width = 60;
+                emojiButton.Height = 60;
+                emojiButton.Margin = new Padding(5);
+                emojiButton.Font = new Font("Segoe UI Emoji", 15);
+
+                emojiButton.Click += (sender, e) =>
+                {
+                    rtbMessage.AppendText(emojiButton.Text);
+                    flpEmoji.Visible = !flpEmoji.Visible;
+                };
+
+                flpEmoji.Controls.Add(emojiButton);
+            }
+        }
+
+        private void btnFindEmoji_Click(object sender, EventArgs e)
+        {
+            string keyword = txtEmoji.Text.Trim().ToLower();
+
+            List<string> searchResults = SearchEmoji(keyword);
+            UpdateEmojiButtons(searchResults);
+        }
+
+        private void UpdateEmojiButtons(List<string> emojis)
+        {
+            for (int i = flpEmoji.Controls.Count - 1; i > 0; i--)
+            {
+                if (flpEmoji.Controls[i] is Button && flpEmoji.Controls[i] != btnFindEmoji)
+                {
+                    flpEmoji.Controls.RemoveAt(i);
+                }
+            }
+
+            foreach (string emoji in emojis)
+            {
+                Button emojiButton = new Button();
+                emojiButton.Text = emoji;
+                emojiButton.Width = 60;
+                emojiButton.Height = 60;
+                emojiButton.Margin = new Padding(5);
+                emojiButton.Font = new Font("Segoe UI Emoji", 15);
+
+                emojiButton.Click += (sender, e) =>
+                {
+                    rtbMessage.AppendText(emojiButton.Text);
+                    flpEmoji.Visible = !flpEmoji.Visible;
+                };
+
+                flpEmoji.Controls.Add(emojiButton);
+            }
+        }
+
+        private List<string> SearchEmoji(string keyword)
+        {
+            List<string> results = new List<string>();
+
+            Type emojiType = typeof(Emoji);
+            FieldInfo[] emojiFields = emojiType.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+            foreach (FieldInfo field in emojiFields)
+            {
+                string emoji = (string)field.GetValue(null);
+                if (field.Name.ToLower().Contains(keyword.ToLower()))
+                {
+                    results.Add(emoji);
+                }
+            }
+            return results;
         }
 
         bool isConnected = false;
@@ -38,7 +121,6 @@ namespace Server
             AddMessage("Me: " + rtbMessage.Text.Trim());
             rtbMessage.Clear();
         }
-
 
         void AddMessage(string s)
         {
@@ -82,8 +164,6 @@ namespace Server
             byte[] message = Encoding.UTF8.GetBytes(s);
             client.Send(message);
         }
-
-
 
         void Receive()
         {
@@ -273,5 +353,12 @@ namespace Server
                 return false;
             }
         }
+
+        private void btnEmoji_Click(object sender, EventArgs e)
+        {
+            flpEmoji.Visible = !flpEmoji.Visible;
+        }
+
+
     }
 }

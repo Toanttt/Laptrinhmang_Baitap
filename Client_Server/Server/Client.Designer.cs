@@ -39,13 +39,20 @@
             this.btnShutServer = new System.Windows.Forms.Button();
             this.btnSendFile = new System.Windows.Forms.Button();
             this.rtbMain = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnEmoji = new System.Windows.Forms.Button();
+            this.flpEmoji = new System.Windows.Forms.FlowLayoutPanel();
+            this.txtEmoji = new System.Windows.Forms.TextBox();
+            this.btnFindEmoji = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.flpEmoji.SuspendLayout();
             this.SuspendLayout();
             // 
             // rtbMessage
             // 
-            this.rtbMessage.Location = new System.Drawing.Point(12, 404);
+            this.rtbMessage.Location = new System.Drawing.Point(6, 19);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(516, 34);
+            this.rtbMessage.Size = new System.Drawing.Size(486, 34);
             this.rtbMessage.TabIndex = 3;
             this.rtbMessage.Text = "";
             this.rtbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbMessage_KeyDown);
@@ -54,9 +61,9 @@
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.btnSend.Image = ((System.Drawing.Image)(resources.GetObject("btnSend.Image")));
-            this.btnSend.Location = new System.Drawing.Point(603, 385);
+            this.btnSend.Location = new System.Drawing.Point(590, 19);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(185, 53);
+            this.btnSend.Size = new System.Drawing.Size(180, 34);
             this.btnSend.TabIndex = 2;
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -114,7 +121,7 @@
             // btnShutServer
             // 
             this.btnShutServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btnShutServer.Location = new System.Drawing.Point(694, 120);
+            this.btnShutServer.Location = new System.Drawing.Point(594, 84);
             this.btnShutServer.Name = "btnShutServer";
             this.btnShutServer.Size = new System.Drawing.Size(94, 30);
             this.btnShutServer.TabIndex = 4;
@@ -124,43 +131,99 @@
             // 
             // btnSendFile
             // 
-            this.btnSendFile.Location = new System.Drawing.Point(534, 397);
+            this.btnSendFile.Location = new System.Drawing.Point(498, 19);
             this.btnSendFile.Name = "btnSendFile";
-            this.btnSendFile.Size = new System.Drawing.Size(63, 41);
+            this.btnSendFile.Size = new System.Drawing.Size(40, 34);
             this.btnSendFile.TabIndex = 5;
-            this.btnSendFile.Text = "I";
+            this.btnSendFile.Text = "F";
             this.btnSendFile.UseVisualStyleBackColor = true;
             this.btnSendFile.Click += new System.EventHandler(this.btnSendFile_Click);
             // 
             // rtbMain
             // 
+            this.rtbMain.BackColor = System.Drawing.SystemColors.Window;
             this.rtbMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbMain.Location = new System.Drawing.Point(12, 12);
             this.rtbMain.Name = "rtbMain";
             this.rtbMain.ReadOnly = true;
-            this.rtbMain.Size = new System.Drawing.Size(507, 386);
+            this.rtbMain.Size = new System.Drawing.Size(538, 368);
             this.rtbMain.TabIndex = 6;
             this.rtbMain.Text = "";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnEmoji);
+            this.groupBox1.Controls.Add(this.rtbMessage);
+            this.groupBox1.Controls.Add(this.btnSendFile);
+            this.groupBox1.Controls.Add(this.btnSend);
+            this.groupBox1.Location = new System.Drawing.Point(12, 386);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(776, 63);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Message";
+            // 
+            // btnEmoji
+            // 
+            this.btnEmoji.Location = new System.Drawing.Point(544, 19);
+            this.btnEmoji.Name = "btnEmoji";
+            this.btnEmoji.Size = new System.Drawing.Size(40, 34);
+            this.btnEmoji.TabIndex = 6;
+            this.btnEmoji.Text = "E";
+            this.btnEmoji.UseVisualStyleBackColor = true;
+            this.btnEmoji.Click += new System.EventHandler(this.btnEmoji_Click);
+            // 
+            // flpEmoji
+            // 
+            this.flpEmoji.AutoScroll = true;
+            this.flpEmoji.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flpEmoji.Controls.Add(this.txtEmoji);
+            this.flpEmoji.Controls.Add(this.btnFindEmoji);
+            this.flpEmoji.Location = new System.Drawing.Point(272, 120);
+            this.flpEmoji.Name = "flpEmoji";
+            this.flpEmoji.Size = new System.Drawing.Size(525, 260);
+            this.flpEmoji.TabIndex = 8;
+            this.flpEmoji.Visible = false;
+            // 
+            // txtEmoji
+            // 
+            this.txtEmoji.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmoji.Location = new System.Drawing.Point(3, 3);
+            this.txtEmoji.Name = "txtEmoji";
+            this.txtEmoji.Size = new System.Drawing.Size(412, 20);
+            this.txtEmoji.TabIndex = 0;
+            // 
+            // btnFindEmoji
+            // 
+            this.btnFindEmoji.Location = new System.Drawing.Point(421, 3);
+            this.btnFindEmoji.Name = "btnFindEmoji";
+            this.btnFindEmoji.Size = new System.Drawing.Size(75, 23);
+            this.btnFindEmoji.TabIndex = 1;
+            this.btnFindEmoji.Text = "Find";
+            this.btnFindEmoji.UseVisualStyleBackColor = true;
+            this.btnFindEmoji.Click += new System.EventHandler(this.btnFindEmoji_Click);
             // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 461);
+            this.Controls.Add(this.flpEmoji);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.rtbMain);
-            this.Controls.Add(this.btnSendFile);
             this.Controls.Add(this.btnShutServer);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.rtbMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Client";
             this.Text = "Client";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Client_FormClosed);
+            this.groupBox1.ResumeLayout(false);
+            this.flpEmoji.ResumeLayout(false);
+            this.flpEmoji.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,6 +240,11 @@
         private System.Windows.Forms.Button btnShutServer;
         private System.Windows.Forms.Button btnSendFile;
         private System.Windows.Forms.RichTextBox rtbMain;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnEmoji;
+        private System.Windows.Forms.FlowLayoutPanel flpEmoji;
+        private System.Windows.Forms.TextBox txtEmoji;
+        private System.Windows.Forms.Button btnFindEmoji;
     }
 }
 

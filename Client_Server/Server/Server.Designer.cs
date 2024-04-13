@@ -39,16 +39,23 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flpEmoji = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnEmoji = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtEmoji = new System.Windows.Forms.TextBox();
+            this.btnFindEmoji = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
+            this.flpEmoji.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSend
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.btnSend.Image = ((System.Drawing.Image)(resources.GetObject("btnSend.Image")));
-            this.btnSend.Location = new System.Drawing.Point(570, 403);
+            this.btnSend.Location = new System.Drawing.Point(593, 19);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(212, 51);
+            this.btnSend.Size = new System.Drawing.Size(177, 34);
             this.btnSend.TabIndex = 5;
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -56,21 +63,22 @@
             // rtbMessage
             // 
             this.rtbMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.rtbMessage.Location = new System.Drawing.Point(12, 419);
+            this.rtbMessage.Location = new System.Drawing.Point(6, 19);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(534, 34);
+            this.rtbMessage.Size = new System.Drawing.Size(535, 34);
             this.rtbMessage.TabIndex = 0;
             this.rtbMessage.Text = "";
             this.rtbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbMessage_KeyDown);
             // 
             // rtbMain
             // 
+            this.rtbMain.BackColor = System.Drawing.SystemColors.Window;
             this.rtbMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.rtbMain.Location = new System.Drawing.Point(12, 27);
             this.rtbMain.Name = "rtbMain";
             this.rtbMain.ReadOnly = true;
-            this.rtbMain.Size = new System.Drawing.Size(535, 386);
+            this.rtbMain.Size = new System.Drawing.Size(535, 354);
             this.rtbMain.TabIndex = 3;
             this.rtbMain.Text = "";
             // 
@@ -141,17 +149,69 @@
             this.sendFileToolStripMenuItem.Text = "Send File";
             this.sendFileToolStripMenuItem.Click += new System.EventHandler(this.sendFileToolStripMenuItem_Click);
             // 
+            // flpEmoji
+            // 
+            this.flpEmoji.AutoScroll = true;
+            this.flpEmoji.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flpEmoji.Controls.Add(this.txtEmoji);
+            this.flpEmoji.Controls.Add(this.btnFindEmoji);
+            this.flpEmoji.Location = new System.Drawing.Point(263, 134);
+            this.flpEmoji.Name = "flpEmoji";
+            this.flpEmoji.Size = new System.Drawing.Size(525, 247);
+            this.flpEmoji.TabIndex = 10;
+            this.flpEmoji.Visible = false;
+            // 
+            // btnEmoji
+            // 
+            this.btnEmoji.Location = new System.Drawing.Point(547, 19);
+            this.btnEmoji.Name = "btnEmoji";
+            this.btnEmoji.Size = new System.Drawing.Size(40, 34);
+            this.btnEmoji.TabIndex = 11;
+            this.btnEmoji.Text = "E";
+            this.btnEmoji.UseVisualStyleBackColor = true;
+            this.btnEmoji.Click += new System.EventHandler(this.btnEmoji_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rtbMessage);
+            this.groupBox1.Controls.Add(this.btnEmoji);
+            this.groupBox1.Controls.Add(this.btnSend);
+            this.groupBox1.Location = new System.Drawing.Point(12, 387);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(776, 62);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Message";
+            // 
+            // txtEmoji
+            // 
+            this.txtEmoji.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtEmoji.Location = new System.Drawing.Point(3, 3);
+            this.txtEmoji.Name = "txtEmoji";
+            this.txtEmoji.Size = new System.Drawing.Size(412, 20);
+            this.txtEmoji.TabIndex = 2;
+            // 
+            // btnFindEmoji
+            // 
+            this.btnFindEmoji.Location = new System.Drawing.Point(421, 3);
+            this.btnFindEmoji.Name = "btnFindEmoji";
+            this.btnFindEmoji.Size = new System.Drawing.Size(75, 23);
+            this.btnFindEmoji.TabIndex = 3;
+            this.btnFindEmoji.Text = "Find";
+            this.btnFindEmoji.UseVisualStyleBackColor = true;
+            this.btnFindEmoji.Click += new System.EventHandler(this.btnFindEmoji_Click);
+            // 
             // Server
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 463);
+            this.ClientSize = new System.Drawing.Size(800, 461);
             this.Controls.Add(this.btnShut);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.flpEmoji);
             this.Controls.Add(this.btnOpenPort);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.lbServer);
-            this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.rtbMessage);
             this.Controls.Add(this.rtbMain);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -161,6 +221,9 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Server_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.flpEmoji.ResumeLayout(false);
+            this.flpEmoji.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,6 +241,11 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendFileToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel flpEmoji;
+        private System.Windows.Forms.Button btnEmoji;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtEmoji;
+        private System.Windows.Forms.Button btnFindEmoji;
     }
 }
 

@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Security;
-using System.Xml.Linq;
-using System.Collections;
+using J3QQ4;
+using System.Reflection;
 
 namespace Server
 {
@@ -24,9 +17,94 @@ namespace Server
         public Server()
         {
             InitializeComponent();
+            LoadEmojiButtons();
             CheckForIllegalCrossThreadCalls = false;
-
         }
+
+        private List<string> emojiList = new List<string>();
+
+        private void LoadEmojiButtons()
+        {
+            Type emojiType = typeof(Emoji);
+            FieldInfo[] emojiFields = emojiType.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+            foreach (FieldInfo field in emojiFields)
+            {
+                string emoji = (string)field.GetValue(null);
+                emojiList.Add(emoji);
+
+                Button emojiButton = new Button();
+                emojiButton.Text = emoji;
+                emojiButton.Width = 60;
+                emojiButton.Height = 60;
+                emojiButton.Margin = new Padding(5);
+                emojiButton.Font = new Font("Segoe UI Emoji", 15);
+
+                emojiButton.Click += (sender, e) =>
+                {
+                    rtbMessage.AppendText(emojiButton.Text);
+                    flpEmoji.Visible = !flpEmoji.Visible;
+                };
+
+                flpEmoji.Controls.Add(emojiButton);
+            }
+        }
+
+        private void btnFindEmoji_Click(object sender, EventArgs e)
+        {
+            string keyword = txtEmoji.Text.Trim().ToLower();
+
+            List<string> searchResults = SearchEmoji(keyword);
+            UpdateEmojiButtons(searchResults);
+        }
+
+        private void UpdateEmojiButtons(List<string> emojis)
+        {
+            for (int i = flpEmoji.Controls.Count - 1; i > 0; i--)
+            {
+                if (flpEmoji.Controls[i] is Button && flpEmoji.Controls[i] != btnFindEmoji)
+                {
+                    flpEmoji.Controls.RemoveAt(i);
+                }
+            }
+
+            foreach (string emoji in emojis)
+            {
+                Button emojiButton = new Button();
+                emojiButton.Text = emoji;
+                emojiButton.Width = 60;
+                emojiButton.Height = 60;
+                emojiButton.Margin = new Padding(5);
+                emojiButton.Font = new Font("Segoe UI Emoji", 15);
+
+                emojiButton.Click += (sender, e) =>
+                {
+                    rtbMessage.AppendText(emojiButton.Text);
+                    flpEmoji.Visible = !flpEmoji.Visible;
+                };
+
+                flpEmoji.Controls.Add(emojiButton);
+            }
+        }
+
+        private List<string> SearchEmoji(string keyword)
+        {
+            List<string> results = new List<string>();
+
+            Type emojiType = typeof(Emoji);
+            FieldInfo[] emojiFields = emojiType.GetFields(BindingFlags.Public | BindingFlags.Static);
+
+            foreach (FieldInfo field in emojiFields)
+            {
+                string emoji = (string)field.GetValue(null);
+                if (field.Name.ToLower().Contains(keyword.ToLower()))
+                {
+                    results.Add(emoji);
+                }
+            }
+            return results;
+        }
+
 
         bool isConnected = false;
         IPEndPoint IP;
@@ -35,7 +113,6 @@ namespace Server
         private IPAddress ipServer = IPAddress.Any;
         private Dictionary<string, Socket> clientList = new Dictionary<string, Socket>();
 
-            
         void Connect(int portNumber)
         {
             clientList = new Dictionary<string, Socket>();
@@ -63,7 +140,7 @@ namespace Server
                         }
                         else
                         {
-                            AddMessage($"{username} đã kết nối thành công đến server!");
+                            AddMessage($"{username} đã kết nối thành công đến server!" + Emoji.Apple);
                             clientList.Add(username, client);
                         }
                         
@@ -117,7 +194,7 @@ namespace Server
             string text = rtbMessage.Text.Trim();
             if (client != null && text != string.Empty)
             {
-                byte[] message = Encoding.UTF8.GetBytes("Server: " + text);
+                byte[] message = Encoding.UTF8.GetBytes("Server: " + Emoji.Book +text);
                 client.Send(message);
             }
         }
@@ -365,6 +442,11 @@ namespace Server
             {
                 return false;
             }
+        }
+
+        private void btnEmoji_Click(object sender, EventArgs e)
+        {
+            flpEmoji.Visible = !flpEmoji.Visible;
         }
     }
 }
