@@ -52,6 +52,7 @@
     <Compile Include="Client.Designer.cs">
       <DependentUpon>Client.cs</DependentUpon>
     </Compile>
+    <Compile Include="Emoji.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
