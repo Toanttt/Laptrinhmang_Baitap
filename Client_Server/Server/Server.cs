@@ -162,6 +162,22 @@ namespace Server
             return null;
         }
 
+        bool IsImageData(byte[] data)
+        {
+            try
+            {
+                using (var ms = new MemoryStream(data))
+                {
+                    Image.FromStream(ms);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private void Receive(object obj)
         {
             Socket client = obj as Socket;
@@ -181,18 +197,33 @@ namespace Server
                         return;
                     }
 
-                    string message = Encoding.Unicode.GetString(data, 0, bytesReceived);
-                    string send_message = $"{username}: {message}";
-                    byte[] send_message__bytes = Encoding.Unicode.GetBytes(send_message);
-
-                    foreach (Socket item in clientList.Values)
+                    if (IsImageData(data))
                     {
-                        if (item != null && item != client)
+                        using (MemoryStream ms = new MemoryStream(data, 0, bytesReceived))
                         {
-                            item.Send(send_message__bytes);
+                            Image image = Image.FromStream(ms);
+                            Invoke((MethodInvoker)delegate
+                            {
+                                AddImageToChatBox(username, image);
+                            });
+                            SendImageBroadCast(image, client);
                         }
                     }
-                    AddMessage(send_message);
+                    else
+                    {
+                        string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
+                        string send_message = $"{username}: {message}";
+                        byte[] send_message__bytes = Encoding.UTF8.GetBytes(send_message);
+
+                        foreach (Socket item in clientList.Values)
+                        {
+                            if (item != null && item != client)
+                            {
+                                item.Send(send_message__bytes);
+                            }
+                        }
+                        AddMessage(send_message);
+                    }
                 }
             }
             catch
@@ -266,9 +297,60 @@ namespace Server
             rtbMain.ScrollToCaret();
         }
 
+        private void AddImageToChatBox(string username, Image image)
+        {
+            rtbMain.AppendText(Environment.NewLine);
+            rtbMain.Select(rtbMain.Text.Length, 0);
+            rtbMain.SelectionColor = rtbMain.ForeColor;
+            rtbMain.AppendText($"{username}: ");
+            rtbMain.Select(rtbMain.Text.Length, 0);
+
+            rtbMain.ReadOnly = false;
+
+            //image = ResizeImage(image, 200, 200);
+            Clipboard.SetImage(image);
+            rtbMain.Paste();
+
+            rtbMain.ReadOnly = true;
+            rtbMain.AppendText(Environment.NewLine);
+            ScrollToBottom();
+        }
+
         private void btnSendImage_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Files|*.*";
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                Image image = Image.FromFile(filePath);
+                AddImageToChatBox("Server", image);
+                SendImageBroadCast(image);
+            }
+        }
+
+        private void SendImageBroadCast(Image image, Socket client = null)
+        {
+            if (!isConnected)
+                return;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, image.RawFormat);
+                byte[] image_data = ms.ToArray();
+
+                if (clientList != null)
+                {
+                    foreach (Socket item in clientList.Values)
+                    {
+                        if (item != client)
+                        {
+                            item.Send(image_data);
+                        }
+                    }
+                }
+            }
         }
     }
 }
