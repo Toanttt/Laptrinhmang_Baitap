@@ -59,11 +59,9 @@ namespace Server
         bool isConnected = false;
         IPEndPoint IP;
         Socket server;
-        //List<Socket> clientList;
         private IPAddress ipServer = IPAddress.Any;
         private Dictionary<string, Socket> clientList = new Dictionary<string, Socket>();
 
-            
         void Connect(int portNumber)
         {
             clientList = new Dictionary<string, Socket>();
@@ -214,7 +212,7 @@ namespace Server
                 }
                 server.Close();
 
-                MessageBox.Show("Tắt server port thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AddMessage("Tắt server port thành công.");
             }
             catch (Exception ex)
             {
@@ -239,18 +237,19 @@ namespace Server
                 txtPort.Focus();
                 return;
             }
-            Connect(portNumber);
-            AddMessage($"Đã mở server port {portNumber} thành công!");
-            btnOpenPort.Enabled = false;
-            txtPort.Enabled = false;
-        }
-
-        private void btnShutPort_Click(object sender, EventArgs e)
-        {
-            StopServer();
-            btnOpenPort.Enabled = true;
-            txtPort.Enabled = true;
-            btnShut.Enabled = false;
+            string s = btnOpenPort.Text;
+            if (s == "Open")
+            {
+                Connect(portNumber);
+                AddMessage($"Đã mở server port {portNumber} thành công!");
+                txtPort.Enabled = false;
+                btnOpenPort.Text = "Shut";
+            } else if (s == "Shut")
+            {
+                StopServer();
+                txtPort.Enabled = true;
+                btnOpenPort.Text = "Open";
+            }
         }
 
         private void rtbMessage_KeyDown(object sender, KeyEventArgs e)
@@ -267,6 +266,9 @@ namespace Server
             rtbMain.ScrollToCaret();
         }
 
+        private void btnSendImage_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

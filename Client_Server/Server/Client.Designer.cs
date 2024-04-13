@@ -40,10 +40,12 @@
             this.btnShutServer = new System.Windows.Forms.Button();
             this.showTableLayoutPanelButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSendImage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rtbMain
             // 
+            this.rtbMain.BackColor = System.Drawing.SystemColors.Window;
             this.rtbMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.rtbMain.Location = new System.Drawing.Point(13, 12);
             this.rtbMain.Name = "rtbMain";
@@ -56,7 +58,7 @@
             // 
             this.rtbMessage.Location = new System.Drawing.Point(12, 404);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(534, 34);
+            this.rtbMessage.Size = new System.Drawing.Size(535, 34);
             this.rtbMessage.TabIndex = 3;
             this.rtbMessage.Text = "";
             this.rtbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbMessage_KeyDown);
@@ -65,9 +67,9 @@
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.btnSend.Image = ((System.Drawing.Image)(resources.GetObject("btnSend.Image")));
-            this.btnSend.Location = new System.Drawing.Point(572, 396);
+            this.btnSend.Location = new System.Drawing.Point(648, 404);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(208, 50);
+            this.btnSend.Size = new System.Drawing.Size(140, 40);
             this.btnSend.TabIndex = 2;
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -125,7 +127,7 @@
             // btnShutServer
             // 
             this.btnShutServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.btnShutServer.Location = new System.Drawing.Point(694, 120);
+            this.btnShutServer.Location = new System.Drawing.Point(594, 84);
             this.btnShutServer.Name = "btnShutServer";
             this.btnShutServer.Size = new System.Drawing.Size(94, 30);
             this.btnShutServer.TabIndex = 4;
@@ -135,10 +137,10 @@
             // 
             // showTableLayoutPanelButton
             // 
-            this.showTableLayoutPanelButton.Location = new System.Drawing.Point(501, 404);
-            this.showTableLayoutPanelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.showTableLayoutPanelButton.Location = new System.Drawing.Point(598, 404);
+            this.showTableLayoutPanelButton.Margin = new System.Windows.Forms.Padding(2);
             this.showTableLayoutPanelButton.Name = "showTableLayoutPanelButton";
-            this.showTableLayoutPanelButton.Size = new System.Drawing.Size(44, 33);
+            this.showTableLayoutPanelButton.Size = new System.Drawing.Size(40, 40);
             this.showTableLayoutPanelButton.TabIndex = 6;
             this.showTableLayoutPanelButton.Text = "☺";
             this.showTableLayoutPanelButton.UseVisualStyleBackColor = true;
@@ -150,8 +152,8 @@
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel.Location = new System.Drawing.Point(501, 278);
-            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(553, 286);
+            this.tableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 4;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -161,11 +163,22 @@
             this.tableLayoutPanel.Size = new System.Drawing.Size(164, 112);
             this.tableLayoutPanel.TabIndex = 7;
             // 
+            // btnSendImage
+            // 
+            this.btnSendImage.Location = new System.Drawing.Point(553, 404);
+            this.btnSendImage.Name = "btnSendImage";
+            this.btnSendImage.Size = new System.Drawing.Size(40, 40);
+            this.btnSendImage.TabIndex = 8;
+            this.btnSendImage.Text = "I";
+            this.btnSendImage.UseVisualStyleBackColor = true;
+            this.btnSendImage.Click += new System.EventHandler(this.btnSendImage_Click);
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSendImage);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.showTableLayoutPanelButton);
             this.Controls.Add(this.btnShutServer);
@@ -199,6 +212,7 @@
         private System.Windows.Forms.Button btnShutServer;
         private System.Windows.Forms.Button showTableLayoutPanelButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Button btnSendImage;
     }
 }
 

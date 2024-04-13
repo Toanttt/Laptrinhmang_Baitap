@@ -19,10 +19,7 @@ using System.Security;
 namespace Server
 {
     public partial class Client : Form
-    {
-
-
-
+    { 
         public Client()
         {
             InitializeComponent();
@@ -184,6 +181,11 @@ namespace Server
         {
             rtbMain.SelectionStart = rtbMain.Text.Length;
             rtbMain.ScrollToCaret();
+        }
+
+        private void btnSendImage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
