@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Client));
-            this.rtbMain = new System.Windows.Forms.RichTextBox();
             this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,23 +37,15 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnShutServer = new System.Windows.Forms.Button();
+            this.btnSendFile = new System.Windows.Forms.Button();
+            this.rtbMain = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // rtbMain
-            // 
-            this.rtbMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.rtbMain.Location = new System.Drawing.Point(13, 12);
-            this.rtbMain.Name = "rtbMain";
-            this.rtbMain.ReadOnly = true;
-            this.rtbMain.Size = new System.Drawing.Size(534, 386);
-            this.rtbMain.TabIndex = 0;
-            this.rtbMain.Text = "";
             // 
             // rtbMessage
             // 
             this.rtbMessage.Location = new System.Drawing.Point(12, 404);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(534, 34);
+            this.rtbMessage.Size = new System.Drawing.Size(516, 34);
             this.rtbMessage.TabIndex = 3;
             this.rtbMessage.Text = "";
             this.rtbMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbMessage_KeyDown);
@@ -63,9 +54,9 @@
             // 
             this.btnSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.btnSend.Image = ((System.Drawing.Image)(resources.GetObject("btnSend.Image")));
-            this.btnSend.Location = new System.Drawing.Point(572, 396);
+            this.btnSend.Location = new System.Drawing.Point(603, 385);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(208, 50);
+            this.btnSend.Size = new System.Drawing.Size(185, 53);
             this.btnSend.TabIndex = 2;
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -131,11 +122,33 @@
             this.btnShutServer.UseVisualStyleBackColor = true;
             this.btnShutServer.Click += new System.EventHandler(this.btnShutServer_Click);
             // 
+            // btnSendFile
+            // 
+            this.btnSendFile.Location = new System.Drawing.Point(534, 397);
+            this.btnSendFile.Name = "btnSendFile";
+            this.btnSendFile.Size = new System.Drawing.Size(63, 41);
+            this.btnSendFile.TabIndex = 5;
+            this.btnSendFile.Text = "I";
+            this.btnSendFile.UseVisualStyleBackColor = true;
+            this.btnSendFile.Click += new System.EventHandler(this.btnSendFile_Click);
+            // 
+            // rtbMain
+            // 
+            this.rtbMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbMain.Location = new System.Drawing.Point(12, 12);
+            this.rtbMain.Name = "rtbMain";
+            this.rtbMain.ReadOnly = true;
+            this.rtbMain.Size = new System.Drawing.Size(507, 386);
+            this.rtbMain.TabIndex = 6;
+            this.rtbMain.Text = "";
+            // 
             // Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.rtbMain);
+            this.Controls.Add(this.btnSendFile);
             this.Controls.Add(this.btnShutServer);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.txtName);
@@ -144,7 +157,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.rtbMessage);
-            this.Controls.Add(this.rtbMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Client";
             this.Text = "Client";
@@ -155,8 +167,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox rtbMain;
         private System.Windows.Forms.RichTextBox rtbMessage;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.Label label1;
@@ -165,6 +175,8 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnShutServer;
+        private System.Windows.Forms.Button btnSendFile;
+        private System.Windows.Forms.RichTextBox rtbMain;
     }
 }
 

@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Net.Http;
-using System.Security;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Server
 {
@@ -81,6 +74,7 @@ namespace Server
             Thread listen = new Thread(Receive);
             listen.IsBackground = true;
             listen.Start();
+            isConnected = true;
         }
 
         void Send(string s)
@@ -88,6 +82,8 @@ namespace Server
             byte[] message = Encoding.UTF8.GetBytes(s);
             client.Send(message);
         }
+
+
 
         void Receive()
         {
@@ -97,13 +93,50 @@ namespace Server
                 {
                     byte[] data = new byte[1024 * 5000];
                     int bytesReceived = client.Receive(data);
-                    string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
-                    AddMessage(message);
+
+                    if (bytesReceived == 0)
+                    {
+                        client.Close();
+                        return;
+                    }
+
+                    if (IsImageData(data))
+                    {
+                        using (MemoryStream ms = new MemoryStream(data, 0, bytesReceived))
+                        {
+                            System.Drawing.Image image = System.Drawing.Image.FromStream(ms);
+                            Invoke((MethodInvoker)delegate
+                            {
+                                AddImageToChatBox(null, image);
+                            });
+                        }
+                    } else
+                    {
+                        string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
+                        AddMessage(message);
+                    }
                 }
             }
             catch
             {
-                Close();
+                rtbMain.AppendText("Lỗi kết nối" + Environment.NewLine);
+                //Close();
+            }
+        }
+
+        private bool IsImageData(byte[] data)
+        {
+            try
+            {
+                using (var ms = new MemoryStream(data))
+                {
+                    System.Drawing.Image.FromStream(ms);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -155,6 +188,90 @@ namespace Server
         {
             rtbMain.SelectionStart = rtbMain.Text.Length;
             rtbMain.ScrollToCaret();
+        }
+
+        private void btnSendFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Files|*.*";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+                if (IsImageFile(filePath))
+                {
+                    System.Drawing.Image image = System.Drawing.Image.FromFile(filePath);
+                    AddImageToChatBox("Me", image);
+                    SendImageToServer(image);
+                }
+            }
+        }
+
+        private void SendImageToServer(System.Drawing.Image image)
+        {
+            if (!isConnected) return;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, image.RawFormat);
+                byte[] image_data = ms.ToArray();
+                client.Send(image_data);
+            }
+        }
+
+        private System.Drawing.Image ResizeImage(System.Drawing.Image image, int maxWidth, int maxHeight)
+        {
+            int newWidth, newHeight;
+            double aspectRatio = (double)image.Width / image.Height;
+
+            if (image.Width > maxWidth)
+            {
+                newWidth = maxWidth;
+                newHeight = (int)(newWidth / aspectRatio);
+            }
+            else if (image.Height > maxHeight)
+            {
+                newHeight = maxHeight;
+                newWidth = (int)(newHeight * aspectRatio);
+            }
+            else
+            {
+                newWidth = image.Width;
+                newHeight = image.Height;
+            }
+
+            return new Bitmap(image, newWidth, newHeight);
+        }
+
+        private void AddImageToChatBox(string username, System.Drawing.Image image)
+        {
+            rtbMain.Select(rtbMain.Text.Length, 0);
+            rtbMain.SelectionColor = rtbMain.ForeColor;
+            rtbMain.AppendText($"{username}: ");
+            rtbMain.Select(rtbMain.Text.Length, 0);
+            rtbMain.ReadOnly = false;
+
+            image = ResizeImage(image, 200, 200);
+            Clipboard.SetImage(image);
+            rtbMain.Paste();
+
+            rtbMain.ReadOnly = true;
+            rtbMain.AppendText(Environment.NewLine);
+            ScrollToBottom();
+        }
+
+        private bool IsImageFile(string filePath)
+        {
+            try
+            {
+                using (var image = System.Drawing.Image.FromFile(filePath))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
