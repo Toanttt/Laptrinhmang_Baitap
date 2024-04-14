@@ -48,7 +48,7 @@
             this.btnMulti.Location = new System.Drawing.Point(12, 126);
             this.btnMulti.Name = "btnMulti";
             this.btnMulti.Size = new System.Drawing.Size(210, 100);
-            this.btnMulti.TabIndex = 0;
+            this.btnMulti.TabIndex = 1;
             this.btnMulti.Text = "Multi";
             this.btnMulti.UseVisualStyleBackColor = true;
             this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click);
@@ -58,7 +58,7 @@
             this.btnExit.Location = new System.Drawing.Point(12, 240);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(210, 100);
-            this.btnExit.TabIndex = 0;
+            this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Thoát";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);

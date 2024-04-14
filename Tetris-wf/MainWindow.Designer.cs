@@ -295,8 +295,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.ScoreUpdateLabel = new System.Windows.Forms.Label();
             this.ScoreUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.btnTest = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.grid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box2)).BeginInit();
@@ -552,7 +550,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.box230)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box231)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box232)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grid
@@ -3237,56 +3234,56 @@
             // TetrisLabel
             // 
             this.TetrisLabel.AutoSize = true;
-            this.TetrisLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TetrisLabel.Location = new System.Drawing.Point(103, 5);
+            this.TetrisLabel.Font = new System.Drawing.Font("Calibri", 25F);
+            this.TetrisLabel.Location = new System.Drawing.Point(118, 5);
             this.TetrisLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TetrisLabel.Name = "TetrisLabel";
-            this.TetrisLabel.Size = new System.Drawing.Size(152, 44);
+            this.TetrisLabel.Size = new System.Drawing.Size(112, 41);
             this.TetrisLabel.TabIndex = 2;
             this.TetrisLabel.Text = "TETRIS";
             // 
             // TimeLabel
             // 
             this.TimeLabel.AutoSize = true;
-            this.TimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TimeLabel.Location = new System.Drawing.Point(358, 42);
+            this.TimeLabel.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TimeLabel.Location = new System.Drawing.Point(358, 44);
             this.TimeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.TimeLabel.Name = "TimeLabel";
-            this.TimeLabel.Size = new System.Drawing.Size(124, 37);
+            this.TimeLabel.Size = new System.Drawing.Size(123, 45);
             this.TimeLabel.TabIndex = 3;
             this.TimeLabel.Text = "Time: 0";
             // 
             // ScoreLabel
             // 
             this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ScoreLabel.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ScoreLabel.Location = new System.Drawing.Point(358, 5);
             this.ScoreLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(136, 37);
+            this.ScoreLabel.Size = new System.Drawing.Size(132, 45);
             this.ScoreLabel.TabIndex = 4;
             this.ScoreLabel.Text = "Score: 0";
             // 
             // ClearsLabel
             // 
             this.ClearsLabel.AutoSize = true;
-            this.ClearsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ClearsLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearsLabel.ForeColor = System.Drawing.Color.Black;
             this.ClearsLabel.Location = new System.Drawing.Point(358, 118);
             this.ClearsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ClearsLabel.Name = "ClearsLabel";
-            this.ClearsLabel.Size = new System.Drawing.Size(89, 29);
+            this.ClearsLabel.Size = new System.Drawing.Size(63, 32);
             this.ClearsLabel.TabIndex = 5;
-            this.ClearsLabel.Text = "Clears:";
+            this.ClearsLabel.Text = "Line:";
             // 
             // LevelLabel
             // 
             this.LevelLabel.AutoSize = true;
-            this.LevelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LevelLabel.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LevelLabel.Location = new System.Drawing.Point(358, 81);
             this.LevelLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LevelLabel.Name = "LevelLabel";
-            this.LevelLabel.Size = new System.Drawing.Size(127, 37);
+            this.LevelLabel.Size = new System.Drawing.Size(125, 45);
             this.LevelLabel.TabIndex = 6;
             this.LevelLabel.Text = "Level: 0";
             // 
@@ -3512,7 +3509,7 @@
             this.tableLayoutPanel2.Controls.Add(this.box230, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.box231, 2, 3);
             this.tableLayoutPanel2.Controls.Add(this.box232, 3, 3);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(362, 346);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(363, 332);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -3686,31 +3683,31 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(361, 147);
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(358, 147);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 24);
+            this.label6.Size = new System.Drawing.Size(51, 25);
             this.label6.TabIndex = 9;
             this.label6.Text = "Next";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(361, 322);
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(361, 305);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(102, 24);
+            this.label7.Size = new System.Drawing.Size(132, 25);
             this.label7.TabIndex = 10;
-            this.label7.Text = "Hold (Shift)";
+            this.label7.Text = "Change (Shift)";
             // 
             // ScoreUpdateLabel
             // 
             this.ScoreUpdateLabel.AutoSize = true;
             this.ScoreUpdateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ScoreUpdateLabel.ForeColor = System.Drawing.Color.Green;
-            this.ScoreUpdateLabel.Location = new System.Drawing.Point(498, 9);
+            this.ScoreUpdateLabel.Location = new System.Drawing.Point(494, 9);
             this.ScoreUpdateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ScoreUpdateLabel.Name = "ScoreUpdateLabel";
             this.ScoreUpdateLabel.Size = new System.Drawing.Size(62, 22);
@@ -3722,32 +3719,11 @@
             this.ScoreUpdateTimer.Interval = 2000;
             this.ScoreUpdateTimer.Tick += new System.EventHandler(this.ScoreUpdateTimer_Tick);
             // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(6, 19);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(134, 56);
-            this.btnTest.TabIndex = 15;
-            this.btnTest.TabStop = false;
-            this.btnTest.Text = "button1";
-            this.btnTest.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnTest);
-            this.groupBox1.Location = new System.Drawing.Point(364, 491);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(151, 96);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(593, 666);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(554, 661);
             this.Controls.Add(this.ScoreUpdateLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -3757,8 +3733,8 @@
             this.Controls.Add(this.ClearsLabel);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.TimeLabel);
-            this.Controls.Add(this.TetrisLabel);
             this.Controls.Add(this.grid);
+            this.Controls.Add(this.TetrisLabel);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainWindow";
@@ -4019,7 +3995,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.box230)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box231)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.box232)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4293,8 +4268,6 @@
         private System.Windows.Forms.PictureBox box252;
         private System.Windows.Forms.Label ScoreUpdateLabel;
         private System.Windows.Forms.Timer ScoreUpdateTimer;
-        private System.Windows.Forms.Button btnTest;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

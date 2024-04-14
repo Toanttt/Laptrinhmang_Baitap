@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Tetris
@@ -27,6 +28,7 @@ namespace Tetris
         int clears = 0;
         int level = 0;
         bool gameOver = false;
+        bool isPaused = false;
         int PieceSequenceIteration = 0;
 
         readonly Color[] colorList = 
@@ -44,8 +46,6 @@ namespace Tetris
         public MainWindow()      
         {
             InitializeComponent();
-
-            btnTest.TabStop = false;
 
             ScoreUpdateLabel.Text = "";
             SpeedTimer.Start();
@@ -166,13 +166,28 @@ namespace Tetris
             // Check for game over
             foreach (Control box in activePiece)
             {
-                if (box.BackColor != Color.White & box.BackColor != Color.LightGray)
+                if (box.BackColor != Color.White && box.BackColor != Color.LightGray)
                 {
                     //Game over!
                     SpeedTimer.Stop();
                     GameTimer.Stop();
                     gameOver = true;
-                    MessageBox.Show("Game over!");
+
+                    DialogResult result = MessageBox.Show("Game over! Chơi game mới?", "Game Over", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Xử lý chơi game mới
+                        StartNewGame();
+                        gameOver = false;
+                        isPaused = false;
+                    }
+                    else
+                    {
+                        // Xử lý thoát form game
+                        this.Close();
+                    }
+
                     return;
                 }
             }
@@ -332,7 +347,7 @@ namespace Tetris
         {
             foreach (PictureBox square in activePiece2)
             {
-                if ((square.BackColor != Color.White & square.BackColor != Color.LightGray) & activePiece.Contains(square) == false)
+                if ((square.BackColor != Color.White && square.BackColor != Color.LightGray) & activePiece.Contains(square) == false)
                 {
                     return false;
                 }
@@ -378,8 +393,14 @@ namespace Tetris
         // Game time (seconds elapsed)
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            timeElapsed++;
-            TimeLabel.Text = "Time: " + timeElapsed.ToString();
+            if (!isPaused)
+            {
+                timeElapsed++;
+                int minutes = timeElapsed / 60; // Số phút
+                int seconds = timeElapsed % 60; // Số giây
+
+                TimeLabel.Text = "Time: " + minutes.ToString("00") + ":" + seconds.ToString("00");
+            }
         }
 
         // Clear lowest full row
@@ -581,6 +602,17 @@ namespace Tetris
         {
                 ScoreUpdateLabel.Text = "";
                 ScoreUpdateTimer.Stop();
+        }
+
+        private void StartNewGame()
+        {
+            foreach (Control control in grid.Controls)
+            {
+                control.BackColor = Color.White;
+            }
+            DropNewPiece();
+            SpeedTimer.Start();
+            GameTimer.Start();
         }
     }   
 }

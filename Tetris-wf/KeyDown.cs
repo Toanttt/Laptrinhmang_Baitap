@@ -9,6 +9,7 @@ namespace Tetris
         // Cleanup needed
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (isPaused) return;
             if (!CheckGameOver() & ((e.KeyCode == Keys.Left | e.KeyCode == Keys.A) & TestMove("left") == true))
             {
                 MovePiece("left");
@@ -543,7 +544,6 @@ namespace Tetris
                     }
                 }
             }
-
             else if (!CheckGameOver() & e.KeyCode == Keys.Space)
             {
                 // Hard drop
@@ -557,6 +557,20 @@ namespace Tetris
                     ClearFullRow();
                 }
                 DropNewPiece();
+            }
+            else if (!CheckGameOver() & e.KeyCode == Keys.Escape)
+            {
+                if (isPaused)
+                {
+                    grid.Enabled = true;
+                    SpeedTimer.Start();
+                    isPaused = false;
+                }
+                else
+                {
+                    SpeedTimer.Stop();
+                    isPaused = true;
+                }
             }
         }
     }
