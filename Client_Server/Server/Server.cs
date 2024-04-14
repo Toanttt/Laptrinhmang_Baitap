@@ -211,9 +211,9 @@ namespace Server
                     }
                     else
                     {
-                        string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
+                        string message = Encoding.Unicode.GetString(data, 0, bytesReceived);
                         string send_message = $"{username}: {message}";
-                        byte[] send_message__bytes = Encoding.UTF8.GetBytes(send_message);
+                        byte[] send_message__bytes = Encoding.Unicode.GetBytes(send_message);
 
                         foreach (Socket item in clientList.Values)
                         {

@@ -159,7 +159,7 @@ namespace Server
                     }
                     else
                     {
-                        string message = Encoding.UTF8.GetString(data, 0, bytesReceived);
+                        string message = Encoding.Unicode.GetString(data, 0, bytesReceived);
                         AddMessage(message);
                     }
                 }
