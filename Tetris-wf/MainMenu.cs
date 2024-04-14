@@ -19,7 +19,7 @@ namespace Tetris
 
         private void btnSolo_Click(object sender, EventArgs e)
         {
-            MainWindowSolo game = new MainWindowSolo();
+            MainWindow game = new MainWindow();
             game.Show();
         }
 

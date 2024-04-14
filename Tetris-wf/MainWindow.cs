@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
-    public partial class MainWindowSolo : Form
+    public partial class MainWindow : Form
     {
         // Initialize global variables
         Control[] activePiece = { null, null, null, null };
@@ -31,19 +31,21 @@ namespace Tetris
 
         readonly Color[] colorList = 
         {  
-            Color.Cyan,     // I piece
-            Color.Orange,   // L piece
-            Color.Blue,     // J piece
-            Color.Green,    // S piece
-            Color.Red,      // Z piece
-            Color.Yellow,   // O piece
-            Color.Purple    // T piece
+            Color.FromArgb(1, 237, 250),     // I piece - cyan
+            Color.FromArgb(255, 200, 46),   // L piece - orange
+            Color.FromArgb(0, 119, 211),     // J piece - blue
+            Color.FromArgb(83, 218, 63),    // S piece - green
+            Color.FromArgb(234, 20, 28),      // Z piece - red
+            Color.FromArgb(255, 213, 0),   // O piece - yellow 
+            Color.FromArgb(221, 10, 178)   // T piece - purple
         };
 
         // Load main window
-        public MainWindowSolo()      
+        public MainWindow()      
         {
             InitializeComponent();
+
+            btnTest.TabStop = false;
 
             ScoreUpdateLabel.Text = "";
             SpeedTimer.Start();
@@ -176,6 +178,7 @@ namespace Tetris
             }
 
             // Draw ghost piece
+            DrawGhost();
 
             // Populate falling piece squares with correct color
             foreach (Control square in activePiece)
@@ -313,6 +316,7 @@ namespace Tetris
             }
 
             // Draw ghost piece (must be between erasing old position and drawing new position)
+            DrawGhost();
 
             // Draw piece in new position
             x = 0;

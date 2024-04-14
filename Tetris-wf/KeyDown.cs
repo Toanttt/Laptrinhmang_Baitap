@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
-    public partial class MainWindowSolo : Form
+    public partial class MainWindow : Form
     {
         // Handle inputs - triggered on any keypress
         // Cleanup needed
