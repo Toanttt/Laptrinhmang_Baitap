@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace Tetris
@@ -32,8 +33,8 @@ namespace Tetris
         bool gameOver = false;
         int PieceSequenceIteration = 0;
 
-        readonly Color[] colorList = 
-        {  
+        readonly Color[] colorList =
+        {
             Color.Cyan,     // I piece
             Color.Orange,   // L piece
             Color.Blue,     // J piece
@@ -44,13 +45,13 @@ namespace Tetris
         };
 
         // Load main window
-        public MainWindow(int playerId)      
+        public MainWindow(int playerId)
         {
             this.playerId = playerId;
             InitializeComponent();
 
-            labelid.Text = "Player " + playerId.ToString();
-            this.Size = new Size(580,700);
+            playerid.Text = "Player " + playerId.ToString();
+            this.Size = new Size(580, 700);
             ScoreUpdateLabel.Text = "";
             SpeedTimer.Start();
             GameTimer.Start();
@@ -120,7 +121,7 @@ namespace Tetris
             }
 
             // Layout options for next piece
-            Control[,] nextPieceArray = 
+            Control[,] nextPieceArray =
             {
                 { box203, box207, box211, box215 }, // I piece
                 { box202, box206, box210, box211 }, // L piece
@@ -134,7 +135,7 @@ namespace Tetris
             // Retrieve layout for next piece
             for (int x = 0; x < 4; x++)
             {
-                nextPiece[x] = nextPieceArray[nextPieceInt,x];
+                nextPiece[x] = nextPieceArray[nextPieceInt, x];
             }
 
             // Populate next piece panel with correct color
@@ -343,7 +344,7 @@ namespace Tetris
             }
             return true;
         }
-        
+
         // Timer for piece movement speed - increases with game level
         // Speed is controlled by LevelUp() method
         private void SpeedTimer_Tick(object sender, EventArgs e)
@@ -583,8 +584,8 @@ namespace Tetris
         // Clear score update notification every 2 seconds
         private void ScoreUpdateTimer_Tick(object sender, EventArgs e)
         {
-                ScoreUpdateLabel.Text = "";
-                ScoreUpdateTimer.Stop();
+            ScoreUpdateLabel.Text = "";
+            ScoreUpdateTimer.Stop();
         }
-    }   
+    }
 }

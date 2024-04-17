@@ -295,7 +295,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.ScoreUpdateLabel = new System.Windows.Forms.Label();
             this.ScoreUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.labelid = new System.Windows.Forms.Label();
+            this.playerid = new System.Windows.Forms.Label();
             this.grid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box2)).BeginInit();
@@ -3712,22 +3712,22 @@
             this.ScoreUpdateTimer.Interval = 2000;
             this.ScoreUpdateTimer.Tick += new System.EventHandler(this.ScoreUpdateTimer_Tick);
             // 
-            // labelid
+            // playerid
             // 
-            this.labelid.AutoSize = true;
-            this.labelid.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.labelid.Location = new System.Drawing.Point(487, 17);
-            this.labelid.Name = "labelid";
-            this.labelid.Size = new System.Drawing.Size(175, 46);
-            this.labelid.TabIndex = 12;
-            this.labelid.Text = "Player id";
+            this.playerid.AutoSize = true;
+            this.playerid.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.playerid.Location = new System.Drawing.Point(486, 14);
+            this.playerid.Name = "playerid";
+            this.playerid.Size = new System.Drawing.Size(164, 46);
+            this.playerid.TabIndex = 12;
+            this.playerid.Text = "Playerid";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 819);
-            this.Controls.Add(this.labelid);
+            this.ClientSize = new System.Drawing.Size(791, 819);
+            this.Controls.Add(this.playerid);
             this.Controls.Add(this.ScoreUpdateLabel);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -4272,7 +4272,7 @@
         private System.Windows.Forms.PictureBox box252;
         private System.Windows.Forms.Label ScoreUpdateLabel;
         private System.Windows.Forms.Timer ScoreUpdateTimer;
-        private System.Windows.Forms.Label labelid;
+        private System.Windows.Forms.Label playerid;
     }
 }
 
