@@ -44,6 +44,7 @@
             // 
             // btnClient
             // 
+            this.btnClient.Font = new System.Drawing.Font("Segoe UI Emoji", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClient.Location = new System.Drawing.Point(212, 28);
             this.btnClient.Name = "btnClient";
             this.btnClient.Size = new System.Drawing.Size(194, 103);
