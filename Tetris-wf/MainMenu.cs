@@ -25,7 +25,8 @@ namespace Tetris
 
         private void btnMulti_Click(object sender, EventArgs e)
         {
-            
+            MultiPlayer multiPlayer = new MultiPlayer();
+            multiPlayer.Show();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Tetris
@@ -325,7 +324,6 @@ namespace Tetris
             x = 0;
             foreach (PictureBox square in activePiece2)
             {
-
                 activePiece[x] = square;
                 x++;
             }
@@ -530,6 +528,7 @@ namespace Tetris
         }
 
         // Return row number of lowest full row
+
         // If no full rows, return -1
         private int CheckForCompleteRows()
         {
@@ -610,9 +609,35 @@ namespace Tetris
             {
                 control.BackColor = Color.White;
             }
+            timeElapsed = 0;
+            score = 0;
             DropNewPiece();
             SpeedTimer.Start();
             GameTimer.Start();
+        }
+
+        // Check if a piece collise with ghost
+        private bool CheckCollisionWithGhost()
+        {
+            foreach (Control square in activePiece)
+            {
+                if (square.BackColor != Color.White && square.BackColor != Color.LightGray && Ghost.Contains(square))
+                {
+                    return true; // Đã xảy ra va chạm với khối Ghost
+                }
+            }
+            return false;
+        }
+        
+        public void ClearGhost()
+        {
+            foreach (Control square in activePiece2)
+            {
+                if (square.BackColor == Color.LightGray)
+                {
+                    square.BackColor = Color.White;
+                }
+            }
         }
     }   
 }

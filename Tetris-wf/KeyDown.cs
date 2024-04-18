@@ -10,15 +10,15 @@ namespace Tetris
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (isPaused) return;
-            if (!CheckGameOver() & ((e.KeyCode == Keys.Left | e.KeyCode == Keys.A) & TestMove("left") == true))
+            if (!CheckGameOver() && ((e.KeyCode == Keys.Left | e.KeyCode == Keys.A) && TestMove("left") == true))
             {
                 MovePiece("left");
             }
-            else if (!CheckGameOver() & ((e.KeyCode == Keys.Right | e.KeyCode == Keys.D) & TestMove("right") == true))
+            else if (!CheckGameOver() && ((e.KeyCode == Keys.Right | e.KeyCode == Keys.D) && TestMove("right") == true))
             {
                 MovePiece("right");
             }
-            else if ((e.KeyCode == Keys.Down | e.KeyCode == Keys.S) & TestMove("down") == true)
+            else if ((e.KeyCode == Keys.Down | e.KeyCode == Keys.S) && TestMove("down") == true)
             {
                 MovePiece("down");
             }
@@ -448,7 +448,7 @@ namespace Tetris
                     x++;
                 }
             }
-            else if (!CheckGameOver() & e.KeyCode == Keys.ShiftKey)
+            else if (!CheckGameOver() && e.KeyCode == Keys.ShiftKey)
             {
                 rotations = 0;
 
@@ -544,7 +544,7 @@ namespace Tetris
                     }
                 }
             }
-            else if (!CheckGameOver() & e.KeyCode == Keys.Space)
+            else if (!CheckGameOver() && e.KeyCode == Keys.Space && !CheckCollisionWithGhost())
             {
                 // Hard drop
                 for (int x = 0; x < 4; x++)
@@ -558,7 +558,11 @@ namespace Tetris
                 }
                 DropNewPiece();
             }
-            else if (!CheckGameOver() & e.KeyCode == Keys.Escape)
+            else if (!CheckGameOver() && e.KeyCode == Keys.Space && CheckCollisionWithGhost())
+            {
+                ClearGhost();
+            }
+            else if (!CheckGameOver() && e.KeyCode == Keys.Escape)
             {
                 if (isPaused)
                 {

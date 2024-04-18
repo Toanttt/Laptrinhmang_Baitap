@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace Tetris
@@ -14,8 +7,6 @@ namespace Tetris
     {
         MainWindow p1Game;
         MainWindow p2Game;
-        Panel panel_p1;
-        Panel panel_p2;
 
         public MultiPlayer()
         {
@@ -23,26 +14,65 @@ namespace Tetris
 
             this.IsMdiContainer = true;
             this.WindowState = FormWindowState.Normal;
-            this.Size = new Size(1100, 700); // Adjust for window borders and title bar
 
             p1Game = new MainWindow();
             p2Game = new MainWindow();
 
-            // Set TopLevel to false to allow adding to a Panel
-            player1Window.TopLevel = false;
-            player2Window.TopLevel = false;
+            p1Game.TopLevel = false;
+            p2Game.TopLevel = false;
 
-            // Remove the title bar
-            player1Window.FormBorderStyle = FormBorderStyle.None;
-            player2Window.FormBorderStyle = FormBorderStyle.None;
+            p1Game.FormBorderStyle = FormBorderStyle.None;
+            p2Game.FormBorderStyle = FormBorderStyle.None;
+            
+            pn_p1.Size = new Size(p1Game.Width, p1Game.Height);
+            pn_p2.Size = new Size(p2Game.Width, p2Game.Height);
 
-            // Add the windows to the panels
-            panel1.Controls.Add(player1Window);
-            panel2.Controls.Add(player2Window);
+            pn_p1.Controls.Add(p1Game);
+            pn_p2.Controls.Add(p2Game);
 
-            // Show the MainWindow
-            player1Window.Show();
-            player2Window.Show();
+            gb_p1.Size = new Size(pn_p1.Width, pn_p2.Height);
+            gb_p2.Size = new Size(pn_p2.Width, pn_p2.Height);
+
+            pn_p1.Dock = DockStyle.Fill;
+            pn_p2.Dock = DockStyle.Fill;
+
+            gb_p1.Dock = DockStyle.Left;
+            gb_p2.Dock = DockStyle.Right;
+
+            p1Game.Show();
+            p2Game.Show();
+
+            //p2Game.Enabled = false;
+            //gb_p2.Enabled = false;
+            //pn_p2.Enabled = false;
+
+            this.Size = new Size(gb_p1.Width * 2 + 10, 760);
+
+            p2Game.TabStop = false;
+            gb_p2.TabStop = false;
+            pn_p2.TabStop = false;
+
+            this.KeyPreview = true; // Set KeyPreview to true to capture key events at the form level
+
+            this.KeyDown += MultiPlayer_KeyDown;
+
+            // Got the problem the arrow key efffect to both 2 panel, fix
+        }
+
+        private void MultiPlayer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (pn_p1.ContainsFocus)
+            {
+                if (e.KeyCode == Keys.Left)
+                {
+                }
+            }
+            else if (pn_p2.ContainsFocus)
+            {
+                if (e.KeyCode == Keys.Left)
+                {
+                }
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Tetris
     public partial class MainWindow : Form
     {
         // Display gray preview of hard drop position
+
         // Needs cleanup
         private void DrawGhost()
         {
