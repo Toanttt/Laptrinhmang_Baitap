@@ -51,7 +51,6 @@ namespace Tetris
         // Chỉ cho panel 1 có thể nhấn phím
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-
             if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Space)
             {
                 KeyEventArgs e = new KeyEventArgs(keyData);
