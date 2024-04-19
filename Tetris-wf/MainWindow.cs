@@ -42,7 +42,7 @@ namespace Tetris
         };
 
         // Load main window
-        public MainWindow()      
+        public MainWindow()
         {
             InitializeComponent();
 
@@ -354,6 +354,7 @@ namespace Tetris
         }
         
         // Timer for piece movement speed - increases with game level
+
         // Speed is controlled by LevelUp() method
         private void SpeedTimer_Tick(object sender, EventArgs e)
         {
@@ -631,7 +632,7 @@ namespace Tetris
         
         public void ClearGhost()
         {
-            foreach (Control square in activePiece2)
+            foreach (Control square in grid.Controls)
             {
                 if (square.BackColor == Color.LightGray)
                 {

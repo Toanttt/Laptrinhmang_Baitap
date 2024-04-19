@@ -42,32 +42,23 @@ namespace Tetris
             p1Game.Show();
             p2Game.Show();
 
-            //p2Game.Enabled = false;
-            //gb_p2.Enabled = false;
-            //pn_p2.Enabled = false;
+            pn_p2.Enabled = false;
+            gb_p2.Enabled = false;
 
             this.Size = new Size(gb_p1.Width * 2 + 10, 760);
-
-            p2Game.TabStop = false;
-            gb_p2.TabStop = false;
-            pn_p2.TabStop = false;
-
-            this.KeyPreview = true; // Set KeyPreview to true to capture key events at the form level
-
-            // Got the problem the arrow key efffect to both 2 panel, fix
         }
 
+        // Chỉ cho panel 1 có thể nhấn phím
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
 
-            if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down)
+            if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Space)
             {
                 KeyEventArgs e = new KeyEventArgs(keyData);
                 p1Game.MainWindow_KeyDown(this, e);
                 return true;
             }
-            return base.ProcessCmdKey(ref msg, keyData);    
+            return base.ProcessCmdKey(ref msg, keyData);
         }
-
     }
 }
