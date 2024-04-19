@@ -48,6 +48,8 @@ namespace Tetris
             player1Window.Show();
             player2Window.Show();
 
+            player2Window.Enabled = false;
+
             player2Window.Focus();
 
         }
@@ -76,18 +78,45 @@ namespace Tetris
             // Kiểm tra xem cửa sổ nào đã kích hoạt sự kiện
             MainWindow senderWindow = sender as MainWindow;
 
-            if (senderWindow == player1Window)
-            {
-                // Nếu player1Window đã kích hoạt sự kiện, thông báo rằng Player 2 thắng
-                MessageBox.Show("Player 2 wins!");
-                player2Window.StopGame();
-            }
-            else 
-            {
-                // Nếu player2Window đã kích hoạt sự kiện, thông báo rằng Player 1 thắng
-                MessageBox.Show("Player 1 wins!");
-                player1Window.StopGame(); 
+            int p1_score = player1Window.GetScore();
+            int p2_score = player2Window.GetScore();
 
+            player1Window.StopGame();
+            player2Window.StopGame();
+
+            string winner = "";
+
+            if (p1_score>p2_score)
+            {
+                winner = "Player 1 wins!";
+            } else if (p1_score<p2_score)
+            {
+                winner = "Player 2 wins!";
+            } else
+            {
+                if (senderWindow == player1Window)
+                {
+                    winner = "Player 2 wins!";
+                }
+                else
+                {
+                    winner = "Player 1 wins!";
+                }
+            }
+
+            DialogResult result = MessageBox.Show($"Player 1: {p1_score}" + 
+                $"\nPlayer 2: {p2_score}" +
+                $"\n{winner}" +
+                $"\nBạn có muốn chơi lại không?", "Thông báo", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                player1Window.StartNewGame();
+                player2Window.StartNewGame();
+            }
+            else if (result == DialogResult.No)
+            {
+                this.Close();
             }
         }
 

@@ -178,7 +178,6 @@ namespace Tetris
                     GameTimer.Stop();
                     gameOver = true;
                     GameOver?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show("Game over!");
                     return;
                 }
             }
@@ -598,6 +597,29 @@ namespace Tetris
             SpeedTimer.Stop();
             GameTimer.Stop();
             gameOver = true;
+        }
+
+        public void StartNewGame()
+        {
+            foreach (Control control in grid.Controls)
+            {
+                control.BackColor = Color.White;
+            }
+            gameOver = false;
+            timeElapsed = 0;
+            score = 0;
+            DropNewPiece();
+            SpeedTimer.Start();
+            GameTimer.Start();
+        }
+        
+        public int GetScore()
+        {
+            return score;
+        }
+        public int GetTime()
+        {
+            return timeElapsed;
         }
     }
 }
