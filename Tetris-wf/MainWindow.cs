@@ -171,6 +171,7 @@ namespace Tetris
                     SpeedTimer.Stop();
                     GameTimer.Stop();
                     gameOver = true;
+                    GameOver?.Invoke(this, EventArgs.Empty);
 
                     DialogResult result = MessageBox.Show("Game over! Chơi game mới?", "Game Over", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -362,6 +363,7 @@ namespace Tetris
             {
                 SpeedTimer.Stop();
                 GameTimer.Stop();
+                GameOver?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Game over!");
             }
 
@@ -378,6 +380,7 @@ namespace Tetris
                     {
                         SpeedTimer.Stop();
                         GameTimer.Stop();
+                        GameOver?.Invoke(this, EventArgs.Empty);
                         MessageBox.Show("Game over!");
                     }
                     if (CheckForCompleteRows() > -1)
@@ -390,6 +393,7 @@ namespace Tetris
         }
 
         // Game time (seconds elapsed)
+        public event EventHandler GameOver;
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             if (!isPaused)
@@ -615,6 +619,13 @@ namespace Tetris
             DropNewPiece();
             SpeedTimer.Start();
             GameTimer.Start();
+        }
+
+        public void StopGame()
+        {
+            SpeedTimer.Stop();
+            GameTimer.Stop();
+            gameOver = true;
         }
 
         // Check if a piece collise with ghost

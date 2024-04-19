@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Tetris
@@ -23,7 +24,10 @@ namespace Tetris
 
             p1Game.FormBorderStyle = FormBorderStyle.None;
             p2Game.FormBorderStyle = FormBorderStyle.None;
-            
+
+            p1Game.GameOver += PlayerWindow_GameOver;
+            p2Game.GameOver += PlayerWindow_GameOver;
+
             pn_p1.Size = new Size(p1Game.Width, p1Game.Height);
             pn_p2.Size = new Size(p2Game.Width, p2Game.Height);
 
@@ -58,6 +62,21 @@ namespace Tetris
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private void PlayerWindow_GameOver(object sender, EventArgs e)
+        {
+            MainWindow senderWindow = sender as MainWindow;
+
+            if (senderWindow == p1Game)
+            {
+                MessageBox.Show("Player 2 wins!");
+                p2Game.StopGame();
+            }
+            else
+            {
+                MessageBox.Show("Player 1 wins!");
+                p1Game.StopGame();
+            }
         }
     }
 }

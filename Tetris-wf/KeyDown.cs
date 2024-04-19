@@ -561,7 +561,6 @@ namespace Tetris
             else if (!CheckGameOver() && e.KeyCode == Keys.Space && CheckCollisionWithGhost())
             {
                 MovePiece("down");
-                ClearGhost();
             }
             else if (!CheckGameOver() && e.KeyCode == Keys.Escape)
             {
