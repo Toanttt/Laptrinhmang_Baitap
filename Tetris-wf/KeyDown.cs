@@ -7,7 +7,7 @@ namespace Tetris
     {
         // Handle inputs - triggered on any keypress
         // Cleanup needed
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
             if (!CheckGameOver() & ((e.KeyCode == Keys.Left | e.KeyCode == Keys.A) & TestMove("left") == true))
             {

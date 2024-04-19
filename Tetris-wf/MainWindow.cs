@@ -177,6 +177,7 @@ namespace Tetris
                     SpeedTimer.Stop();
                     GameTimer.Stop();
                     gameOver = true;
+                    GameOver?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show("Game over!");
                     return;
                 }
@@ -347,13 +348,16 @@ namespace Tetris
 
         // Timer for piece movement speed - increases with game level
         // Speed is controlled by LevelUp() method
-        private void SpeedTimer_Tick(object sender, EventArgs e)
+        public event EventHandler GameOver;
+        public void SpeedTimer_Tick(object sender, EventArgs e)
         {
             if (CheckGameOver() == true)
             {
                 SpeedTimer.Stop();
                 GameTimer.Stop();
+                GameOver?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Game over!");
+
             }
 
             else
@@ -369,6 +373,7 @@ namespace Tetris
                     {
                         SpeedTimer.Stop();
                         GameTimer.Stop();
+                        GameOver?.Invoke(this, EventArgs.Empty);
                         MessageBox.Show("Game over!");
                     }
                     if (CheckForCompleteRows() > -1)
@@ -560,8 +565,9 @@ namespace Tetris
         }
 
         // Game ends if a piece is in the top row when the next piece is dropped
-        private bool CheckGameOver()
+        public bool CheckGameOver()
         {
+
             Control[] topRow = { box1, box2, box3, box4, box5, box6, box7, box8, box9, box10 };
 
             foreach (Control box in topRow)
@@ -586,6 +592,12 @@ namespace Tetris
         {
             ScoreUpdateLabel.Text = "";
             ScoreUpdateTimer.Stop();
+        }
+        public void StopGame()
+        {
+            SpeedTimer.Stop();
+            GameTimer.Stop();
+            gameOver = true;
         }
     }
 }
