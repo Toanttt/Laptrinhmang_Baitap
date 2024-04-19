@@ -54,25 +54,20 @@ namespace Tetris
 
             this.KeyPreview = true; // Set KeyPreview to true to capture key events at the form level
 
-            this.KeyDown += MultiPlayer_KeyDown;
-
             // Got the problem the arrow key efffect to both 2 panel, fix
         }
 
-        private void MultiPlayer_KeyDown(object sender, KeyEventArgs e)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (pn_p1.ContainsFocus)
+
+            if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down)
             {
-                if (e.KeyCode == Keys.Left)
-                {
-                }
+                KeyEventArgs e = new KeyEventArgs(keyData);
+                p1Game.MainWindow_KeyDown(this, e);
+                return true;
             }
-            else if (pn_p2.ContainsFocus)
-            {
-                if (e.KeyCode == Keys.Left)
-                {
-                }
-            }
+            return base.ProcessCmdKey(ref msg, keyData);    
         }
+
     }
 }
