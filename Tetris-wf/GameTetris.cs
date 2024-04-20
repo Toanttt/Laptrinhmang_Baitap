@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
-    public partial class MainWindow : Form
+    public partial class GameTetris : Form
     {
         // Initialize global variables
         Control[] activePiece = { null, null, null, null };
@@ -42,7 +42,7 @@ namespace Tetris
         };
 
         // Load main window
-        public MainWindow()
+        public GameTetris()
         {
             InitializeComponent();
 

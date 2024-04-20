@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Tetris
 {
-    public partial class MainWindow : Form
+    public partial class GameTetris : Form
     {
         // Display gray preview of hard drop position
 

@@ -6,8 +6,8 @@ namespace Tetris
 {
     public partial class MultiPlayer : Form
     {
-        MainWindow p1Game;
-        MainWindow p2Game;
+        GameTetris p1Game;
+        GameTetris p2Game;
 
         public MultiPlayer()
         {
@@ -16,8 +16,8 @@ namespace Tetris
             this.IsMdiContainer = true;
             this.WindowState = FormWindowState.Normal;
 
-            p1Game = new MainWindow();
-            p2Game = new MainWindow();
+            p1Game = new GameTetris();
+            p2Game = new GameTetris();
 
             p1Game.TopLevel = false;
             p2Game.TopLevel = false;
@@ -65,7 +65,7 @@ namespace Tetris
         }
         private void PlayerWindow_GameOver(object sender, EventArgs e)
         {
-            MainWindow senderWindow = sender as MainWindow;
+            GameTetris senderWindow = sender as GameTetris;
 
             if (senderWindow == p1Game)
             {
