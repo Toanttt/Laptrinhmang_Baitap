@@ -20,30 +20,33 @@ namespace Tetris
         private void btnSolo_Click(object sender, EventArgs e)
         {
             GameTetris game = new GameTetris();
+            if (txtName.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập tên", "Thông báo");
+                txtName.Focus();
+                return;
+            }
+            game.PlayerName = txtName.Text;
             game.Show();
         }
 
         private void btnMulti_Click(object sender, EventArgs e)
         {
-            MultiPlayer multiPlayer = new MultiPlayer();
-            multiPlayer.Show();
-
             try
             {
                 if (txtName.Text == "")
                 {
                     MessageBox.Show("Bạn chưa nhập tên", "Thông báo");
+                    txtName.Focus();
                     return;
                 }
                 if (txtRoom.Text == "")
                 {
                     MessageBox.Show("Bạn chưa nhập số phòng", "Thông báo");
+                    txtRoom.Focus();
                     return;
                 }
-                GameTetris gameCaro = new GameTetris();
-                gameCaro.GameMode = 1;
-                gameCaro.Room = int.Parse(txtRoom.Text);
-                gameCaro.GetName = txtName.Text;
+                MultiPlayer gameCaro = new MultiPlayer();
                 gameCaro.Show();
             }
             catch

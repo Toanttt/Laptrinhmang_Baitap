@@ -8,6 +8,8 @@ namespace Tetris
 {
     public partial class GameTetris : Form
     {
+
+        #region Globel 
         // Initialize global variables
         Control[] activePiece = { null, null, null, null };
         Control[] activePiece2 = { null, null, null, null };
@@ -29,6 +31,7 @@ namespace Tetris
         bool gameOver = false;
         bool isPaused = false;
         int PieceSequenceIteration = 0;
+        bool isPlayable = false;
 
         readonly Color[] colorList = 
         {  
@@ -40,41 +43,38 @@ namespace Tetris
             Color.FromArgb(255, 213, 0),   // O piece - yellow 
             Color.FromArgb(221, 10, 178)   // T piece - purple
         };
+        #endregion
+
+        SocketManager socket;
+        public string PlayerName = "";
+        int room = 0;
+        int gameMode = 1;
+        string getName = "";
+
+        public int Room { get => room; set => room = value; }
+        public int GameMode { get => gameMode; set => gameMode = value; }
+        internal SocketManager Socket { get => socket; set => socket = value; }
+        public string GetName { get => getName; set => getName = value; }
 
         // Load main window
         public GameTetris()
         {
             InitializeComponent();
-
             ScoreUpdateLabel.Text = "";
-            SpeedTimer.Start();
-            GameTimer.Start();
-
             // Initialize/reset ghost piece
             // box1 through box4 are invisible
             activePiece2[0] = box1;
             activePiece2[1] = box2;
             activePiece2[2] = box3;
             activePiece2[3] = box4;
-
-            // Generate piece sequence
-            System.Random random = new System.Random();
-            while (PieceSequence.Count < 7)
-            {
-                int x = random.Next(7);
-                if (!PieceSequence.Contains(x))
-                {
-                    PieceSequence.Add(x);
-                }
-            }
-
-            // Select first piece
-            nextPieceInt = PieceSequence[0];
-            PieceSequenceIteration++;
-
-            DropNewPiece();
         }
 
+        private void GameTetris_Load(object sender, EventArgs e)
+        {
+            txtName.Text = PlayerName;
+        }
+
+        #region Methods
         public void DropNewPiece()
         {
             // Reset number of times current piece has been rotated
@@ -178,9 +178,9 @@ namespace Tetris
                     if (result == DialogResult.Yes)
                     {
                         // Xử lý chơi game mới
-                        StartNewGame();
                         gameOver = false;
                         isPaused = false;
+                        btnPlay.Enabled = true;
                     }
                     else
                     {
@@ -205,6 +205,8 @@ namespace Tetris
         // Test if a potential move (left/right/down) would be outside the grid or overlap another piece
         public bool TestMove(string direction)
         {
+            if (!isPlayable) return false;
+
             int currentHighRow = 21;
             int currentLowRow = 0;
             int currentLeftCol = 9;
@@ -364,7 +366,21 @@ namespace Tetris
                 SpeedTimer.Stop();
                 GameTimer.Stop();
                 GameOver?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show("Game over!");
+
+                DialogResult result = MessageBox.Show("Game over! Chơi game mới?", "Game Over", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Xử lý chơi game mới
+                    gameOver = false;
+                    isPaused = false;
+                    btnPlay.Enabled = true;
+                }
+                else
+                {
+                    // Xử lý thoát form game
+                    this.Close();
+                }
             }
 
             else
@@ -381,7 +397,22 @@ namespace Tetris
                         SpeedTimer.Stop();
                         GameTimer.Stop();
                         GameOver?.Invoke(this, EventArgs.Empty);
-                        MessageBox.Show("Game over!");
+
+                        DialogResult result = MessageBox.Show("Game over! Chơi game mới?", "Game Over", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            // Xử lý chơi game mới
+                            gameOver = false;
+                            isPaused = false;
+                            btnPlay.Enabled = true;
+
+                        }
+                        else
+                        {
+                            // Xử lý thoát form game
+                            this.Close();
+                        }
                     }
                     if (CheckForCompleteRows() > -1)
                     {
@@ -608,26 +639,6 @@ namespace Tetris
                 ScoreUpdateTimer.Stop();
         }
 
-        private void StartNewGame()
-        {
-            foreach (Control control in grid.Controls)
-            {
-                control.BackColor = Color.White;
-            }
-            timeElapsed = 0;
-            score = 0;
-            DropNewPiece();
-            SpeedTimer.Start();
-            GameTimer.Start();
-        }
-
-        public void StopGame()
-        {
-            SpeedTimer.Stop();
-            GameTimer.Stop();
-            gameOver = true;
-        }
-
         // Check if a piece collise with ghost
         private bool CheckCollisionWithGhost()
         {
@@ -640,16 +651,57 @@ namespace Tetris
             }
             return false;
         }
-        
-        public void ClearGhost()
+
+        private void StartNewGame()
         {
-            foreach (Control square in grid.Controls)
+            isPlayable = true;
+            foreach (Control control in grid.Controls)
             {
-                if (square.BackColor == Color.LightGray)
+                control.BackColor = Color.White;
+            }
+
+            timeElapsed = 0;
+            score = 0;
+            clears = 0;
+            level = 0;
+            combo = 0;
+
+            // Generate piece sequence
+            System.Random random = new System.Random();
+            while (PieceSequence.Count < 7)
+            {
+                int x = random.Next(7);
+                if (!PieceSequence.Contains(x))
                 {
-                    square.BackColor = Color.White;
+                    PieceSequence.Add(x);
                 }
             }
+
+            SpeedTimer.Start();
+            GameTimer.Start();
+
+            // Select first piece
+            nextPieceInt = PieceSequence[0];
+            PieceSequenceIteration++;
+
+            DropNewPiece();
+
+            btnPlay.Enabled = true;
         }
-    }   
+
+        public void StopGame()
+        {
+            SpeedTimer.Stop();
+            GameTimer.Stop();
+            gameOver = true;
+        }
+
+        #endregion
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            StartNewGame();
+            btnPlay.Enabled = false;
+        }
+    }
 }

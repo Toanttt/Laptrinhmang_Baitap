@@ -42,7 +42,7 @@
             // btnSolo
             // 
             this.btnSolo.Location = new System.Drawing.Point(13, 13);
-            this.btnSolo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSolo.Margin = new System.Windows.Forms.Padding(4);
             this.btnSolo.Name = "btnSolo";
             this.btnSolo.Size = new System.Drawing.Size(172, 75);
             this.btnSolo.TabIndex = 0;
@@ -53,7 +53,7 @@
             // btnMulti
             // 
             this.btnMulti.Location = new System.Drawing.Point(13, 96);
-            this.btnMulti.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMulti.Margin = new System.Windows.Forms.Padding(4);
             this.btnMulti.Name = "btnMulti";
             this.btnMulti.Size = new System.Drawing.Size(172, 75);
             this.btnMulti.TabIndex = 1;
@@ -64,7 +64,7 @@
             // btnExit
             // 
             this.btnExit.Location = new System.Drawing.Point(193, 13);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(172, 75);
             this.btnExit.TabIndex = 2;
@@ -87,6 +87,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(100, 22);
             this.txtName.TabIndex = 3;
+            this.txtName.Text = "Wuoc";
             // 
             // label2
             // 
@@ -128,7 +129,7 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnMulti);
             this.Controls.Add(this.btnSolo);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainMenu";
             this.Text = "MainMenu";
             this.Load += new System.EventHandler(this.MainMenu_Load);

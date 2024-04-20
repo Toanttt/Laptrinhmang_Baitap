@@ -9,7 +9,7 @@ namespace Tetris
         // Cleanup needed
         public void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (isPaused) return;
+            if (isPaused || isPlayable == false) return;
             if (!CheckGameOver() && ((e.KeyCode == Keys.Left | e.KeyCode == Keys.A) && TestMove("left") == true))
             {
                 MovePiece("left");

@@ -296,8 +296,9 @@
             this.ScoreUpdateLabel = new System.Windows.Forms.Label();
             this.ScoreUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnPlay = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.grid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.box1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.box2)).BeginInit();
@@ -558,6 +559,7 @@
             // 
             // grid
             // 
+            this.grid.BackColor = System.Drawing.Color.White;
             this.grid.ColumnCount = 10;
             this.grid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.grid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -3293,6 +3295,7 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -3487,6 +3490,7 @@
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -3717,12 +3721,34 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnPlay);
             this.panel1.Controls.Add(this.txtName);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(11, 13);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(719, 42);
             this.panel1.TabIndex = 12;
+            // 
+            // btnPlay
+            // 
+            this.btnPlay.Location = new System.Drawing.Point(167, 6);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(50, 29);
+            this.btnPlay.TabIndex = 2;
+            this.btnPlay.Text = "Play";
+            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
+            // 
+            // txtName
+            // 
+            this.txtName.BackColor = System.Drawing.SystemColors.Window;
+            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.Location = new System.Drawing.Point(61, 10);
+            this.txtName.Name = "txtName";
+            this.txtName.ReadOnly = true;
+            this.txtName.Size = new System.Drawing.Size(100, 22);
+            this.txtName.TabIndex = 1;
+            this.txtName.TabStop = false;
             // 
             // label1
             // 
@@ -3732,14 +3758,6 @@
             this.label1.Size = new System.Drawing.Size(44, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
-            // 
-            // txtName
-            // 
-            this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Location = new System.Drawing.Point(61, 10);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 22);
-            this.txtName.TabIndex = 1;
             // 
             // GameTetris
             // 
@@ -3762,6 +3780,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GameTetris";
             this.Text = "Tetris";
+            this.Load += new System.EventHandler(this.GameTetris_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.grid.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.box1)).EndInit();
@@ -4296,6 +4315,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPlay;
     }
 }
 
