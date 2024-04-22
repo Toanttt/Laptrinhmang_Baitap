@@ -17,13 +17,13 @@ namespace Tetris
         Control[] savedPiece = { null, null, null, null };
         Control[] Ghost = { null, null, null, null };
         List<int> PieceSequence = new List<int>();
+        Color pieceColor = Color.White;
+        Color savedPieceColor = Color.White;
         int timeElapsed = 0;
         int currentPiece;
         int nextPieceInt;
         int savedPieceInt = -1;
         int rotations = 0;
-        Color pieceColor = Color.White;
-        Color savedPieceColor = Color.White;
         int combo = 0;
         int score = 0;
         int clears = 0;
@@ -45,6 +45,8 @@ namespace Tetris
         };
         #endregion
 
+        public event EventHandler StartGame;
+        public event EventHandler GameOver;
         SocketManager socket;
         public string PlayerName = "";
         int room = 0;
@@ -424,7 +426,6 @@ namespace Tetris
         }
 
         // Game time (seconds elapsed)
-        public event EventHandler GameOver;
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             if (!isPaused)
@@ -655,18 +656,20 @@ namespace Tetris
         private void StartNewGame()
         {
             isPlayable = true;
-            foreach (Control control in grid.Controls)
-            {
-                control.BackColor = Color.White;
-            }
-
             timeElapsed = 0;
             score = 0;
             clears = 0;
             level = 0;
             combo = 0;
+            gameOver = false;
+            isPaused = false;
 
-            // Generate piece sequence
+            foreach (Control control in grid.Controls)
+            {
+                control.BackColor = Color.White;
+            }
+
+            PieceSequence.Clear();
             System.Random random = new System.Random();
             while (PieceSequence.Count < 7)
             {
@@ -685,8 +688,7 @@ namespace Tetris
             PieceSequenceIteration++;
 
             DropNewPiece();
-
-            btnPlay.Enabled = true;
+            btnPlay.Enabled = false;
         }
 
         public void StopGame()
@@ -698,10 +700,22 @@ namespace Tetris
 
         #endregion
 
-        private void btnPlay_Click(object sender, EventArgs e)
+        public void btnPlay_Click(object sender, EventArgs e)
         {
             StartNewGame();
+            StartGame?.Invoke(this, EventArgs.Empty);
             btnPlay.Enabled = false;
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Space
+                || keyData == Keys.A || keyData == Keys.S || keyData == Keys.W || keyData == Keys.D)
+            {
+                KeyEventArgs e = new KeyEventArgs(keyData);
+                this.MainWindow_KeyDown(this, e);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

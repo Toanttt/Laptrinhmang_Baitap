@@ -28,6 +28,8 @@ namespace Tetris
             p1Game.GameOver += PlayerWindow_GameOver;
             p2Game.GameOver += PlayerWindow_GameOver;
 
+            p1Game.StartGame += GameTetris_StartGame;
+
             pn_p1.Size = new Size(p1Game.Width, p1Game.Height);
             pn_p2.Size = new Size(p2Game.Width, p2Game.Height);
 
@@ -55,7 +57,8 @@ namespace Tetris
         // Chỉ cho panel 1 có thể nhấn phím
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Space)
+            if (keyData == Keys.Left || keyData == Keys.Right || keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Space
+                || keyData == Keys.A || keyData == Keys.S || keyData == Keys.W || keyData == Keys.D)
             {
                 KeyEventArgs e = new KeyEventArgs(keyData);
                 p1Game.MainWindow_KeyDown(this, e);
@@ -77,6 +80,10 @@ namespace Tetris
                 MessageBox.Show("Player 1 wins!");
                 p1Game.StopGame();
             }
+        }
+        private void GameTetris_StartGame(object sender, EventArgs e)
+        {
+            p2Game.btnPlay_Click(this, e);
         }
     }
 }
