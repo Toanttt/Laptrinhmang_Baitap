@@ -15,7 +15,6 @@ namespace Server
         public Main()
         {
             InitializeComponent();
-            btnClient.Text = "\U0001F600 Hello World! \U0001F680";
         }
 
         private void btnServer_Click(object sender, EventArgs e)
