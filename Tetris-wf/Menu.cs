@@ -47,6 +47,7 @@ namespace Tetris
                     return;
                 }
                 MultiPlayer gameCaro = new MultiPlayer();
+                gameCaro.p1Game.PlayerName = txtName.Text.Trim();
                 gameCaro.Show();
             }
             catch

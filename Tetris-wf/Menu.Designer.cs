@@ -79,6 +79,7 @@
             this.txtRoom.Name = "txtRoom";
             this.txtRoom.Size = new System.Drawing.Size(100, 22);
             this.txtRoom.TabIndex = 3;
+            this.txtRoom.Text = "1234";
             // 
             // txtName
             // 

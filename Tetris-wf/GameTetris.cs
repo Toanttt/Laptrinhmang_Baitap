@@ -8,8 +8,7 @@ namespace Tetris
 {
     public partial class GameTetris : Form
     {
-
-        #region Globel 
+        #region Global 
         // Initialize global variables
         Control[] activePiece = { null, null, null, null };
         Control[] activePiece2 = { null, null, null, null };

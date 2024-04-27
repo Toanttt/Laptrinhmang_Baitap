@@ -6,8 +6,8 @@ namespace Tetris
 {
     public partial class MultiPlayer : Form
     {
-        GameTetris p1Game;
-        GameTetris p2Game;
+        public GameTetris p1Game;
+        public GameTetris p2Game;
 
         public MultiPlayer()
         {
@@ -66,19 +66,20 @@ namespace Tetris
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
         private void PlayerWindow_GameOver(object sender, EventArgs e)
         {
             GameTetris senderWindow = sender as GameTetris;
+            p2Game.StopGame(); 
+            p1Game.StopGame();
 
             if (senderWindow == p1Game)
             {
                 MessageBox.Show("Player 2 wins!");
-                p2Game.StopGame();
             }
             else
             {
                 MessageBox.Show("Player 1 wins!");
-                p1Game.StopGame();
             }
         }
         private void GameTetris_StartGame(object sender, EventArgs e)
